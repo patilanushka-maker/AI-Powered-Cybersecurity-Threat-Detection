@@ -96,25 +96,35 @@ This project is an offline, CSV-based research prototype evaluated on static net
 
 ## 4. Visual Overview and Interface Previews
 
-Visual assets, architectural diagrams, and dashboard screen captures are maintained in the images directory:
+Screenshots of the interactive security operations dashboard and model evaluation interface:
 
-### System Architecture
-![System Architecture](images/system_architecture.png)
-*Detailed architecture diagram showing ingestion, schema normalization, training pipelines, and inference workflows.*
+### 1. System Overview and Triage Dashboard
+![System Overview and Triage Dashboard](images/dashboard_overview.jpg)
+*Live dashboard home tab monitoring operational engine status, model artifact verification, processed flow counters (225,745 flows analyzed), and high-level attack triage metrics.*
 
-### Dashboard Overview
-![Dashboard Overview](images/dashboard_overview.png)
-*System overview tab displaying live model availability, triage metrics, session flow statistics, and operational notices.*
+### 2. Batch Network Flow Ingestion
+![Batch Network Flow Scoring Upload](images/batch_flow_upload.jpg)
+*Batch flow scoring interface featuring drag-and-drop CSV upload for raw network flow captures (CIC-IDS2017) and an interactive decision threshold slider.*
 
-### Batch Flow Scoring
-![Batch Flow Scoring](images/batch_flow_prediction.png)
-*Batch scoring interface with drag-and-drop CSV upload, schema verification, configurable decision threshold slider, and preview.*
+### 3. Batch Threat Scoring Execution
+![Batch Flow Threat Analysis Results](images/batch_prediction_results.jpg)
+*Real-time feature extraction preview and model scoring results across 225,745 network flows, surfacing 127,980 suspicious flows and 97,765 benign flows.*
 
-### Flagged Threat Alerts Feed
-![Threat Alerts Feed](images/threat_alerts_feed.png)
-*Structured alert event table showing unique Flow IDs, severity tiers, timestamps, calibrated threat scores, and metadata export.*
+### 4. Analyst Prioritization and Export Panel
+![Analyst Prioritization and Export View](images/filter_and_export_view.jpg)
+*Dynamic flow filtering view allowing analysts to filter by minimum risk score and classification type, with export capabilities for Scored CSV and Structured JSON alert files.*
 
-*(Note: If image files are not yet present in your clone, placeholder links point directly to the images folder where screenshots can be deposited.)*
+### 5. Security Alerts Feed and Severity Breakdown
+![Security Alerts Feed and Severity Tiers](images/threat_alerts_feed.jpg)
+*Triage alert event stream categorizing detected threats into calibrated severity tiers (Critical: 127,734, High: 109, Medium: 84, Low: 53) with complete telemetry metadata.*
+
+### 6. Empirical Benchmark and Validation Reports
+![Empirical Benchmark and Validation Reports](images/model_benchmarks_report.jpg)
+*Empirical evaluation report viewer displaying independent test split metrics (99.9750% Accuracy, 100.0000% Precision, 99.8816% Recall, 0.0000% False Positive Rate).*
+
+### 7. Model Architecture and Feature Schema Audit
+![Model Architecture and Feature Schema Audit](images/feature_architecture_audit.jpg)
+*Model inspection interface detailing serialized hyperparameter configurations, median imputer strategies, and the 78 calibrated network flow feature definitions.*
 
 ---
 
@@ -179,8 +189,8 @@ The project is evaluated on the Canadian Institute for Cybersecurity CIC-IDS2017
 
 ### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/ai-cybersecurity-threat-detection.git
-cd ai-cybersecurity-threat-detection
+git clone https://github.com/patilanushka-maker/AI-Powered-Cybersecurity-Threat-Detection.git
+cd AI-Powered-Cybersecurity-Threat-Detection
 ```
 
 ### Step 2: Create and Activate Virtual Environment

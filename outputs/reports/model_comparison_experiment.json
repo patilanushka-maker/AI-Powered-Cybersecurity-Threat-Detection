@@ -1,0 +1,575 @@
+{
+  "milestone": "MILESTONE 16: MODEL IMPROVEMENT AND GENERALIZATION",
+  "timestamp": "2026-10-11T11:12:13.875132",
+  "experiment_configuration": {
+    "train_sources": [
+      "data\\raw\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+      "data\\raw\\Tuesday-WorkingHours.pcap_ISCX.csv"
+    ],
+    "independent_test_source": "data\\raw\\Wednesday-workingHours.pcap_ISCX.csv",
+    "sample_size": 100000,
+    "test_size": 0.2,
+    "random_state": 42,
+    "n_estimators": 100,
+    "max_depth": 15,
+    "duplicate_strategy": "Within-file duplicates identified and preserved in dev data; sampled stratifying across raw classes",
+    "total_dev_duplicates_detected": 28635
+  },
+  "historical_baseline_reference": {
+    "models_evaluated": {
+      "multi_attack_held_out": {
+        "accuracy": 0.99975,
+        "recall": 0.998816,
+        "precision": 1.0,
+        "f1_score": 0.999408,
+        "source_report": "outputs/reports/multi_attack_train_evaluation.json"
+      },
+      "multi_attack_wednesday_independent": {
+        "accuracy": 0.635532,
+        "recall": 0.0011,
+        "precision": 0.789773,
+        "f1_score": 0.002197,
+        "source_report": "outputs/reports/third_capture_evaluation.json"
+      }
+    }
+  },
+  "model_comparison": {
+    "rf_unweighted": {
+      "estimator": "RandomForestClassifier",
+      "validation_accuracy": 0.99965,
+      "validation_recall": 0.998342803030303,
+      "validation_precision": 1.0,
+      "validation_f1": 0.9991707143703352,
+      "validation_fpr": 0.0,
+      "validation_roc_auc": 0.9999998949545532,
+      "validation_pr_auc": 0.9999996083202625,
+      "validation_per_family": {
+        "BENIGN": {
+          "category": "benign",
+          "total_samples": 15776,
+          "predicted_benign": 15776,
+          "predicted_attack": 0,
+          "benign_specificity": 1.0,
+          "false_positive_rate": 0.0
+        },
+        "DDoS": {
+          "category": "attack",
+          "total_samples": 3844,
+          "detected_attacks": 3839,
+          "missed_attacks": 5,
+          "recall": 0.9986992715920916,
+          "miss_rate": 0.0013007284079084287
+        },
+        "FTP-Patator": {
+          "category": "attack",
+          "total_samples": 218,
+          "detected_attacks": 218,
+          "missed_attacks": 0,
+          "recall": 1.0,
+          "miss_rate": 0.0
+        },
+        "SSH-Patator": {
+          "category": "attack",
+          "total_samples": 162,
+          "detected_attacks": 160,
+          "missed_attacks": 2,
+          "recall": 0.9876543209876543,
+          "miss_rate": 0.012345679012345678
+        }
+      },
+      "wednesday_accuracy": 0.6351105740844201,
+      "wednesday_recall": 0.0003641084093211753,
+      "wednesday_precision": 0.3382352941176471,
+      "wednesday_f1": 0.0007274337402745273,
+      "wednesday_fpr": 0.0004090620888073795,
+      "wednesday_roc_auc": 0.9208183722095332,
+      "wednesday_pr_auc": 0.8896535727476278,
+      "wednesday_per_family": {
+        "BENIGN": {
+          "category": "benign",
+          "total_samples": 440031,
+          "predicted_benign": 439851,
+          "predicted_attack": 180,
+          "benign_specificity": 0.9995909379111926,
+          "false_positive_rate": 0.0004090620888073795
+        },
+        "DoS GoldenEye": {
+          "category": "attack",
+          "total_samples": 10293,
+          "detected_attacks": 0,
+          "missed_attacks": 10293,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        },
+        "DoS Hulk": {
+          "category": "attack",
+          "total_samples": 231073,
+          "detected_attacks": 92,
+          "missed_attacks": 230981,
+          "recall": 0.00039814257831940553,
+          "miss_rate": 0.9996018574216806
+        },
+        "DoS Slowhttptest": {
+          "category": "attack",
+          "total_samples": 5499,
+          "detected_attacks": 0,
+          "missed_attacks": 5499,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        },
+        "DoS slowloris": {
+          "category": "attack",
+          "total_samples": 5796,
+          "detected_attacks": 0,
+          "missed_attacks": 5796,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        },
+        "Heartbleed": {
+          "category": "attack",
+          "total_samples": 11,
+          "detected_attacks": 0,
+          "missed_attacks": 11,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        }
+      },
+      "model_path": "models\\model_rf_unweighted_m16.joblib",
+      "report_path": "outputs\\reports\\exp_rf_unweighted_report.json"
+    },
+    "rf_balanced": {
+      "estimator": "RandomForestClassifier",
+      "validation_accuracy": 0.99975,
+      "validation_recall": 0.9988162878787878,
+      "validation_precision": 1.0,
+      "validation_f1": 0.9994077934383513,
+      "validation_fpr": 0.0,
+      "validation_roc_auc": 0.9999999549805227,
+      "validation_pr_auc": 0.9999998318590674,
+      "validation_per_family": {
+        "BENIGN": {
+          "category": "benign",
+          "total_samples": 15776,
+          "predicted_benign": 15776,
+          "predicted_attack": 0,
+          "benign_specificity": 1.0,
+          "false_positive_rate": 0.0
+        },
+        "DDoS": {
+          "category": "attack",
+          "total_samples": 3844,
+          "detected_attacks": 3841,
+          "missed_attacks": 3,
+          "recall": 0.9992195629552549,
+          "miss_rate": 0.0007804370447450572
+        },
+        "FTP-Patator": {
+          "category": "attack",
+          "total_samples": 218,
+          "detected_attacks": 218,
+          "missed_attacks": 0,
+          "recall": 1.0,
+          "miss_rate": 0.0
+        },
+        "SSH-Patator": {
+          "category": "attack",
+          "total_samples": 162,
+          "detected_attacks": 160,
+          "missed_attacks": 2,
+          "recall": 0.9876543209876543,
+          "miss_rate": 0.012345679012345678
+        }
+      },
+      "wednesday_accuracy": 0.635532111164525,
+      "wednesday_recall": 0.00110024062816616,
+      "wednesday_precision": 0.7897727272727273,
+      "wednesday_f1": 0.0021974200075882133,
+      "wednesday_fpr": 0.00016816996984303379,
+      "wednesday_roc_auc": 0.8277766442275168,
+      "wednesday_pr_auc": 0.786762474890567,
+      "wednesday_per_family": {
+        "BENIGN": {
+          "category": "benign",
+          "total_samples": 440031,
+          "predicted_benign": 439957,
+          "predicted_attack": 74,
+          "benign_specificity": 0.999831830030157,
+          "false_positive_rate": 0.00016816996984303379
+        },
+        "DoS GoldenEye": {
+          "category": "attack",
+          "total_samples": 10293,
+          "detected_attacks": 0,
+          "missed_attacks": 10293,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        },
+        "DoS Hulk": {
+          "category": "attack",
+          "total_samples": 231073,
+          "detected_attacks": 213,
+          "missed_attacks": 230860,
+          "recall": 0.0009217866215438411,
+          "miss_rate": 0.9990782133784561
+        },
+        "DoS Slowhttptest": {
+          "category": "attack",
+          "total_samples": 5499,
+          "detected_attacks": 65,
+          "missed_attacks": 5434,
+          "recall": 0.01182033096926714,
+          "miss_rate": 0.9881796690307328
+        },
+        "DoS slowloris": {
+          "category": "attack",
+          "total_samples": 5796,
+          "detected_attacks": 0,
+          "missed_attacks": 5796,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        },
+        "Heartbleed": {
+          "category": "attack",
+          "total_samples": 11,
+          "detected_attacks": 0,
+          "missed_attacks": 11,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        }
+      },
+      "model_path": "models\\model_rf_balanced_m16.joblib",
+      "report_path": "outputs\\reports\\exp_rf_balanced_report.json"
+    },
+    "rf_balanced_subsample": {
+      "estimator": "RandomForestClassifier",
+      "validation_accuracy": 0.99975,
+      "validation_recall": 0.9988162878787878,
+      "validation_precision": 1.0,
+      "validation_f1": 0.9994077934383513,
+      "validation_fpr": 0.0,
+      "validation_roc_auc": 0.9999998499350758,
+      "validation_pr_auc": 0.9999994399939505,
+      "validation_per_family": {
+        "BENIGN": {
+          "category": "benign",
+          "total_samples": 15776,
+          "predicted_benign": 15776,
+          "predicted_attack": 0,
+          "benign_specificity": 1.0,
+          "false_positive_rate": 0.0
+        },
+        "DDoS": {
+          "category": "attack",
+          "total_samples": 3844,
+          "detected_attacks": 3841,
+          "missed_attacks": 3,
+          "recall": 0.9992195629552549,
+          "miss_rate": 0.0007804370447450572
+        },
+        "FTP-Patator": {
+          "category": "attack",
+          "total_samples": 218,
+          "detected_attacks": 218,
+          "missed_attacks": 0,
+          "recall": 1.0,
+          "miss_rate": 0.0
+        },
+        "SSH-Patator": {
+          "category": "attack",
+          "total_samples": 162,
+          "detected_attacks": 160,
+          "missed_attacks": 2,
+          "recall": 0.9876543209876543,
+          "miss_rate": 0.012345679012345678
+        }
+      },
+      "wednesday_accuracy": 0.6376556763865611,
+      "wednesday_recall": 0.007199056484295846,
+      "wednesday_precision": 0.9266428935303107,
+      "wednesday_f1": 0.014287116853535453,
+      "wednesday_fpr": 0.0003272496710459036,
+      "wednesday_roc_auc": 0.8384957495259867,
+      "wednesday_pr_auc": 0.7818202144892525,
+      "wednesday_per_family": {
+        "BENIGN": {
+          "category": "benign",
+          "total_samples": 440031,
+          "predicted_benign": 439887,
+          "predicted_attack": 144,
+          "benign_specificity": 0.9996727503289541,
+          "false_positive_rate": 0.0003272496710459036
+        },
+        "DoS GoldenEye": {
+          "category": "attack",
+          "total_samples": 10293,
+          "detected_attacks": 0,
+          "missed_attacks": 10293,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        },
+        "DoS Hulk": {
+          "category": "attack",
+          "total_samples": 231073,
+          "detected_attacks": 1819,
+          "missed_attacks": 229254,
+          "recall": 0.007871971195249986,
+          "miss_rate": 0.99212802880475
+        },
+        "DoS Slowhttptest": {
+          "category": "attack",
+          "total_samples": 5499,
+          "detected_attacks": 0,
+          "missed_attacks": 5499,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        },
+        "DoS slowloris": {
+          "category": "attack",
+          "total_samples": 5796,
+          "detected_attacks": 0,
+          "missed_attacks": 5796,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        },
+        "Heartbleed": {
+          "category": "attack",
+          "total_samples": 11,
+          "detected_attacks": 0,
+          "missed_attacks": 11,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        }
+      },
+      "model_path": "models\\model_rf_balanced_subsample_m16.joblib",
+      "report_path": "outputs\\reports\\exp_rf_balanced_subsample_report.json"
+    },
+    "hist_gradient_boosting": {
+      "estimator": "HistGradientBoostingClassifier",
+      "validation_accuracy": 0.99975,
+      "validation_recall": 0.9990530303030303,
+      "validation_precision": 0.9997630893153281,
+      "validation_f1": 0.999407933688573,
+      "validation_fpr": 6.338742393509128e-05,
+      "validation_roc_auc": 0.9999989195325465,
+      "validation_pr_auc": 0.9999959864876535,
+      "validation_per_family": {
+        "BENIGN": {
+          "category": "benign",
+          "total_samples": 15776,
+          "predicted_benign": 15775,
+          "predicted_attack": 1,
+          "benign_specificity": 0.9999366125760649,
+          "false_positive_rate": 6.338742393509128e-05
+        },
+        "DDoS": {
+          "category": "attack",
+          "total_samples": 3844,
+          "detected_attacks": 3840,
+          "missed_attacks": 4,
+          "recall": 0.9989594172736732,
+          "miss_rate": 0.001040582726326743
+        },
+        "FTP-Patator": {
+          "category": "attack",
+          "total_samples": 218,
+          "detected_attacks": 218,
+          "missed_attacks": 0,
+          "recall": 1.0,
+          "miss_rate": 0.0
+        },
+        "SSH-Patator": {
+          "category": "attack",
+          "total_samples": 162,
+          "detected_attacks": 162,
+          "missed_attacks": 0,
+          "recall": 1.0,
+          "miss_rate": 0.0
+        }
+      },
+      "wednesday_accuracy": 0.6396550902767852,
+      "wednesday_recall": 0.012569655521783182,
+      "wednesday_precision": 0.9647630619684082,
+      "wednesday_f1": 0.024815989748558392,
+      "wednesday_fpr": 0.00026361779056475565,
+      "wednesday_roc_auc": 0.478725745582674,
+      "wednesday_pr_auc": 0.3929537171969586,
+      "wednesday_per_family": {
+        "BENIGN": {
+          "category": "benign",
+          "total_samples": 440031,
+          "predicted_benign": 439915,
+          "predicted_attack": 116,
+          "benign_specificity": 0.9997363822094353,
+          "false_positive_rate": 0.00026361779056475565
+        },
+        "DoS GoldenEye": {
+          "category": "attack",
+          "total_samples": 10293,
+          "detected_attacks": 0,
+          "missed_attacks": 10293,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        },
+        "DoS Hulk": {
+          "category": "attack",
+          "total_samples": 231073,
+          "detected_attacks": 2608,
+          "missed_attacks": 228465,
+          "recall": 0.011286476568010975,
+          "miss_rate": 0.988713523431989
+        },
+        "DoS Slowhttptest": {
+          "category": "attack",
+          "total_samples": 5499,
+          "detected_attacks": 103,
+          "missed_attacks": 5396,
+          "recall": 0.01873067830514639,
+          "miss_rate": 0.9812693216948536
+        },
+        "DoS slowloris": {
+          "category": "attack",
+          "total_samples": 5796,
+          "detected_attacks": 465,
+          "missed_attacks": 5331,
+          "recall": 0.08022774327122154,
+          "miss_rate": 0.9197722567287785
+        },
+        "Heartbleed": {
+          "category": "attack",
+          "total_samples": 11,
+          "detected_attacks": 0,
+          "missed_attacks": 11,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        }
+      },
+      "model_path": "models\\model_hist_gradient_boosting_m16.joblib",
+      "report_path": "outputs\\reports\\exp_hist_gradient_boosting_report.json"
+    },
+    "extra_trees_balanced": {
+      "estimator": "ExtraTreesClassifier",
+      "validation_accuracy": 0.996,
+      "validation_recall": 0.9812973484848485,
+      "validation_precision": 0.9997588036661843,
+      "validation_f1": 0.990442054958184,
+      "validation_fpr": 6.338742393509128e-05,
+      "validation_roc_auc": 0.9999605779444419,
+      "validation_pr_auc": 0.9998734191020376,
+      "validation_per_family": {
+        "BENIGN": {
+          "category": "benign",
+          "total_samples": 15776,
+          "predicted_benign": 15775,
+          "predicted_attack": 1,
+          "benign_specificity": 0.9999366125760649,
+          "false_positive_rate": 6.338742393509128e-05
+        },
+        "DDoS": {
+          "category": "attack",
+          "total_samples": 3844,
+          "detected_attacks": 3840,
+          "missed_attacks": 4,
+          "recall": 0.9989594172736732,
+          "miss_rate": 0.001040582726326743
+        },
+        "FTP-Patator": {
+          "category": "attack",
+          "total_samples": 218,
+          "detected_attacks": 218,
+          "missed_attacks": 0,
+          "recall": 1.0,
+          "miss_rate": 0.0
+        },
+        "SSH-Patator": {
+          "category": "attack",
+          "total_samples": 162,
+          "detected_attacks": 87,
+          "missed_attacks": 75,
+          "recall": 0.5370370370370371,
+          "miss_rate": 0.46296296296296297
+        }
+      },
+      "wednesday_accuracy": 0.6835382552118296,
+      "wednesday_recall": 0.13343385891590678,
+      "wednesday_precision": 0.9924349464264689,
+      "wednesday_f1": 0.23523953056753322,
+      "wednesday_fpr": 0.0005840497601305362,
+      "wednesday_roc_auc": 0.9355450785825734,
+      "wednesday_pr_auc": 0.8860789839584806,
+      "wednesday_per_family": {
+        "BENIGN": {
+          "category": "benign",
+          "total_samples": 440031,
+          "predicted_benign": 439774,
+          "predicted_attack": 257,
+          "benign_specificity": 0.9994159502398695,
+          "false_positive_rate": 0.0005840497601305362
+        },
+        "DoS GoldenEye": {
+          "category": "attack",
+          "total_samples": 10293,
+          "detected_attacks": 0,
+          "missed_attacks": 10293,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        },
+        "DoS Hulk": {
+          "category": "attack",
+          "total_samples": 231073,
+          "detected_attacks": 33195,
+          "missed_attacks": 197878,
+          "recall": 0.14365590094905073,
+          "miss_rate": 0.8563440990509492
+        },
+        "DoS Slowhttptest": {
+          "category": "attack",
+          "total_samples": 5499,
+          "detected_attacks": 0,
+          "missed_attacks": 5499,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        },
+        "DoS slowloris": {
+          "category": "attack",
+          "total_samples": 5796,
+          "detected_attacks": 520,
+          "missed_attacks": 5276,
+          "recall": 0.08971704623878538,
+          "miss_rate": 0.9102829537612146
+        },
+        "Heartbleed": {
+          "category": "attack",
+          "total_samples": 11,
+          "detected_attacks": 0,
+          "missed_attacks": 11,
+          "recall": 0.0,
+          "miss_rate": 1.0
+        }
+      },
+      "model_path": "models\\model_extra_trees_balanced_m16.joblib",
+      "report_path": "outputs\\reports\\exp_extra_trees_balanced_report.json"
+    }
+  },
+  "saved_artifacts": {
+    "models": {
+      "rf_unweighted": "models\\model_rf_unweighted_m16.joblib",
+      "rf_balanced": "models\\model_rf_balanced_m16.joblib",
+      "rf_balanced_subsample": "models\\model_rf_balanced_subsample_m16.joblib",
+      "hist_gradient_boosting": "models\\model_hist_gradient_boosting_m16.joblib",
+      "extra_trees_balanced": "models\\model_extra_trees_balanced_m16.joblib"
+    },
+    "reports": {
+      "rf_unweighted": "outputs\\reports\\exp_rf_unweighted_report.json",
+      "rf_balanced": "outputs\\reports\\exp_rf_balanced_report.json",
+      "rf_balanced_subsample": "outputs\\reports\\exp_rf_balanced_subsample_report.json",
+      "hist_gradient_boosting": "outputs\\reports\\exp_hist_gradient_boosting_report.json",
+      "extra_trees_balanced": "outputs\\reports\\exp_extra_trees_balanced_report.json"
+    }
+  },
+  "findings_summary": [
+    "Random Forest models without or with class weighting perform nearly identically in-distribution (~99.98% accuracy on held-out DDoS/Patator traffic).",
+    "On out-of-distribution Wednesday capture (application-layer DoS attacks: Hulk, GoldenEye, Slowloris, Slowhttptest), standard Random Forest models exhibit severe recall failure (~0.0% to 0.11% recall at default decision threshold 0.5) due to shortcut learning on destination port and packet length features.",
+    "Class weighting alone does NOT solve cross-capture domain shift when novel attack vectors exhibit fundamentally different flow statistics than the training set.",
+    "HistGradientBoosting and ExtraTreesClassifier exhibit distinct tree partitioning characteristics that marginally shift sensitivity thresholds, but overall generalization remains constrained by the absence of application-layer DoS traffic in training data."
+  ]
+}

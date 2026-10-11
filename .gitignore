@@ -1,0 +1,88 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment variables and local secrets
+.env
+.env.*
+!.env.example
+*.secret
+
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Datasets (exclude oversized raw and processed captures, preserve directory structure)
+data/raw/*.csv
+data/processed/*.csv
+*.pcap
+*.parquet
+*.zip
+*.tar.gz
+*.gz
+
+# Outputs (exclude ephemeral predictions and runtime logs, preserve reports and keep files)
+outputs/predictions/*
+!outputs/predictions/.gitkeep
+outputs/logs/*
+!outputs/logs/.gitkeep
+*.log
+
+# Pytest / Unit Test / Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.hypothesis/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+ehthumbs.db
+
+# IDE / Editor Settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary scratch and ide-specific artifacts
+scratch/
+browser/
+.system_generated/

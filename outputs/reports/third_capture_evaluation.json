@@ -1,0 +1,71 @@
+{
+  "accuracy": 0.635532111164525,
+  "precision": 0.7897727272727273,
+  "recall": 0.00110024062816616,
+  "f1_score": 0.0021974200075882133,
+  "false_positive_rate": 0.00016816996984303379,
+  "pos_label": 1,
+  "confusion_matrix": {
+    "matrix": [
+      [
+        439957,
+        74
+      ],
+      [
+        252394,
+        278
+      ]
+    ],
+    "true_negatives": 439957,
+    "false_positives": 74,
+    "false_negatives": 252394,
+    "true_positives": 278
+  },
+  "sample_count": 692703,
+  "roc_auc": 0.8277766442275168,
+  "pr_auc": 0.786762474890567,
+  "roc_auc_applicable": true,
+  "evaluation_type": "external_dataset",
+  "dataset_source": "data\\raw\\Wednesday-workingHours.pcap_ISCX.csv",
+  "model_path": "models\\random_forest_multi_attack.joblib",
+  "total_samples_evaluated": 692703,
+  "target_label_policy": {
+    "benign_labels": [
+      "0",
+      "BENIGN",
+      "NORMAL"
+    ],
+    "recognized_attack_labels": [
+      "1",
+      "ATTACK",
+      "BOT",
+      "BRUTE FORCE",
+      "DDOS",
+      "DDOS LOIC",
+      "DOS",
+      "DOS GOLDENEYE",
+      "DOS HULK",
+      "DOS SLOWHTTPTEST",
+      "DOS SLOWLORIS",
+      "FTP-PATATOR",
+      "HEARTBLEED",
+      "INFILTRATION",
+      "MALICIOUS",
+      "PORTSCAN",
+      "SSH-PATATOR",
+      "WEB ATTACK",
+      "WEB ATTACK - BRUTE FORCE",
+      "WEB ATTACK - SQL INJECTION",
+      "WEB ATTACK - XSS",
+      "WEB ATTACK \u2013 BRUTE FORCE",
+      "WEB ATTACK \u2013 SQL INJECTION",
+      "WEB ATTACK \u2013 XSS"
+    ],
+    "unknown_action": "reject_with_error",
+    "missing_or_blank_action": "reject_with_error",
+    "binary_mapping": "0: Benign, 1: Attack",
+    "multiclass_claimed": false
+  },
+  "evaluation_method": "Scikit-Learn Binary Metrics on External Dataset",
+  "data_overlap_note": "Evaluated on user-supplied dataset. Note: Cross-dataset overlap with historical training partitions has not been determined and cannot be verified without dataset fingerprinting. No claim of independent evaluation is made if evaluation data overlaps with training data."
+}

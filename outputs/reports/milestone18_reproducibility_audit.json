@@ -1,0 +1,610 @@
+{
+  "milestone": "MILESTONE 18: INDEPENDENT REPRODUCIBILITY AND METRIC AUDIT",
+  "timestamp": "2026-10-11T11:36:53.012708",
+  "overall_audit_status": "PASSED_WITH_DOCUMENTED_LIMITATIONS",
+  "dataset_verification": {
+    "Friday": {
+      "raw_rows": 225745,
+      "clean_rows": 225745,
+      "benign": 97718,
+      "attack": 128027,
+      "dropped_rows": 0
+    },
+    "Tuesday": {
+      "raw_rows": 445909,
+      "clean_rows": 445909,
+      "benign": 432074,
+      "attack": 13835,
+      "dropped_rows": 0
+    },
+    "Wednesday": {
+      "raw_rows": 692703,
+      "clean_rows": 692703,
+      "benign": 440031,
+      "attack": 252672,
+      "dropped_rows": 0
+    }
+  },
+  "confusion_matrix_arithmetic_assertions": {
+    "tp_plus_fn_equals_total_attacks_252672": true,
+    "tn_plus_fp_equals_total_benign_440031": true,
+    "sum_equals_total_evaluated_692703": true,
+    "status": "ALL_ASSERTIONS_PASSED"
+  },
+  "recomputed_wednesday_metrics": {
+    "multi_attack_baseline": {
+      "artifact_path": "models/random_forest_multi_attack.joblib",
+      "positive_class_index": 1,
+      "feature_count": 78,
+      "roc_auc": 0.8277766437103539,
+      "pr_auc": 0.786762474890567,
+      "thresholds": {
+        "0.10": {
+          "threshold": 0.1,
+          "confusion_matrix": {
+            "tp": 30948,
+            "fp": 2650,
+            "tn": 437381,
+            "fn": 221724
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6760891753031242,
+          "precision": 0.9211262575153283,
+          "recall": 0.12248290273556231,
+          "f1_score": 0.21621546092849409,
+          "false_positive_rate": 0.006022302974108642,
+          "specificity": 0.9939776970258913
+        },
+        "0.20": {
+          "threshold": 0.2,
+          "confusion_matrix": {
+            "tp": 6554,
+            "fp": 783,
+            "tn": 439248,
+            "fn": 246118
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6435687444691304,
+          "precision": 0.8932806324110671,
+          "recall": 0.025938766464032422,
+          "f1_score": 0.0504136395278625,
+          "false_positive_rate": 0.0017794200863121008,
+          "specificity": 0.9982205799136878
+        },
+        "0.30": {
+          "threshold": 0.3,
+          "confusion_matrix": {
+            "tp": 3433,
+            "fp": 373,
+            "tn": 439658,
+            "fn": 249239
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6396550902767852,
+          "precision": 0.9019968470835523,
+          "recall": 0.013586784447821682,
+          "f1_score": 0.026770327279532748,
+          "false_positive_rate": 0.000847667550695292,
+          "specificity": 0.9991523324493047
+        },
+        "0.40": {
+          "threshold": 0.4,
+          "confusion_matrix": {
+            "tp": 2321,
+            "fp": 239,
+            "tn": 439792,
+            "fn": 250351
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6382432297824608,
+          "precision": 0.906640625,
+          "recall": 0.009185821935157042,
+          "f1_score": 0.018187374623871617,
+          "false_positive_rate": 0.0005431435512497984,
+          "specificity": 0.9994568564487502
+        },
+        "0.50": {
+          "threshold": 0.5,
+          "confusion_matrix": {
+            "tp": 278,
+            "fp": 74,
+            "tn": 439957,
+            "fn": 252394
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.635532111164525,
+          "precision": 0.7897727272727273,
+          "recall": 0.00110024062816616,
+          "f1_score": 0.0021974200075882133,
+          "false_positive_rate": 0.00016816996984303379,
+          "specificity": 0.999831830030157
+        }
+      }
+    },
+    "extra_trees_balanced": {
+      "artifact_path": "models/model_extra_trees_balanced_m16.joblib",
+      "positive_class_index": 1,
+      "feature_count": 78,
+      "roc_auc": 0.9355450785825734,
+      "pr_auc": 0.8860789829040334,
+      "thresholds": {
+        "0.10": {
+          "threshold": 0.1,
+          "confusion_matrix": {
+            "tp": 229328,
+            "fp": 58229,
+            "tn": 381802,
+            "fn": 23344
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.8822395745362731,
+          "precision": 0.7975044947610387,
+          "recall": 0.9076114488348531,
+          "f1_score": 0.8490029228345757,
+          "false_positive_rate": 0.13232931316202723,
+          "specificity": 0.8676706868379728
+        },
+        "0.20": {
+          "threshold": 0.2,
+          "confusion_matrix": {
+            "tp": 143756,
+            "fp": 24825,
+            "tn": 415206,
+            "fn": 108916
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.806928799211206,
+          "precision": 0.8527414121401582,
+          "recall": 0.5689431357649443,
+          "f1_score": 0.6825162075997084,
+          "false_positive_rate": 0.05641647974801775,
+          "specificity": 0.9435835202519822
+        },
+        "0.30": {
+          "threshold": 0.3,
+          "confusion_matrix": {
+            "tp": 95950,
+            "fp": 16607,
+            "tn": 423424,
+            "fn": 156722
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.7497787652139517,
+          "precision": 0.8524569773536963,
+          "recall": 0.3797413247213779,
+          "f1_score": 0.5254237752204781,
+          "false_positive_rate": 0.03774052282680084,
+          "specificity": 0.9622594771731992
+        },
+        "0.40": {
+          "threshold": 0.4,
+          "confusion_matrix": {
+            "tp": 89449,
+            "fp": 1546,
+            "tn": 438485,
+            "fn": 163223
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.7621361535896336,
+          "precision": 0.9830100554975548,
+          "recall": 0.3540123163627153,
+          "f1_score": 0.5205562361239223,
+          "false_positive_rate": 0.0035133888294233816,
+          "specificity": 0.9964866111705766
+        },
+        "0.50": {
+          "threshold": 0.5,
+          "confusion_matrix": {
+            "tp": 40642,
+            "fp": 257,
+            "tn": 439774,
+            "fn": 212030
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6935382119032255,
+          "precision": 0.9937162277806303,
+          "recall": 0.1608488475177305,
+          "f1_score": 0.27688020955748355,
+          "false_positive_rate": 0.0005840497601305362,
+          "specificity": 0.9994159502398695
+        }
+      }
+    },
+    "rf_unweighted": {
+      "artifact_path": "models/model_rf_unweighted_m16.joblib",
+      "positive_class_index": 1,
+      "feature_count": 78,
+      "roc_auc": 0.9208183722095333,
+      "pr_auc": 0.8896535727476278,
+      "thresholds": {
+        "0.10": {
+          "threshold": 0.1,
+          "confusion_matrix": {
+            "tp": 166775,
+            "fp": 2490,
+            "tn": 437541,
+            "fn": 85897
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.8724027469203973,
+          "precision": 0.9852893392018433,
+          "recall": 0.6600454343971631,
+          "f1_score": 0.7905208597492044,
+          "false_positive_rate": 0.005658692228502083,
+          "specificity": 0.9943413077714979
+        },
+        "0.20": {
+          "threshold": 0.2,
+          "confusion_matrix": {
+            "tp": 113240,
+            "fp": 1086,
+            "tn": 438945,
+            "fn": 139432
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.797145385540412,
+          "precision": 0.990500848450921,
+          "recall": 0.44816995947315097,
+          "f1_score": 0.6171150796462106,
+          "false_positive_rate": 0.0024680079358045228,
+          "specificity": 0.9975319920641955
+        },
+        "0.30": {
+          "threshold": 0.3,
+          "confusion_matrix": {
+            "tp": 7226,
+            "fp": 467,
+            "tn": 439564,
+            "fn": 245446
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6449950411648282,
+          "precision": 0.9392954634082933,
+          "recall": 0.02859834093211753,
+          "f1_score": 0.05550669252779752,
+          "false_positive_rate": 0.0010612888637391456,
+          "specificity": 0.9989387111362609
+        },
+        "0.40": {
+          "threshold": 0.4,
+          "confusion_matrix": {
+            "tp": 200,
+            "fp": 275,
+            "tn": 439756,
+            "fn": 252472
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6351293411462056,
+          "precision": 0.42105263157894735,
+          "recall": 0.0007915400202634245,
+          "f1_score": 0.0015801095805994146,
+          "false_positive_rate": 0.0006249559690112742,
+          "specificity": 0.9993750440309888
+        },
+        "0.50": {
+          "threshold": 0.5,
+          "confusion_matrix": {
+            "tp": 92,
+            "fp": 182,
+            "tn": 439849,
+            "fn": 252580
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6351076868441453,
+          "precision": 0.3357664233576642,
+          "recall": 0.0003641084093211753,
+          "f1_score": 0.0007274279885825433,
+          "false_positive_rate": 0.00041360722312746147,
+          "specificity": 0.9995863927768726
+        }
+      }
+    },
+    "rf_balanced": {
+      "artifact_path": "models/model_rf_balanced_m16.joblib",
+      "positive_class_index": 1,
+      "feature_count": 78,
+      "roc_auc": 0.827776643710354,
+      "pr_auc": 0.786762474890567,
+      "thresholds": {
+        "0.10": {
+          "threshold": 0.1,
+          "confusion_matrix": {
+            "tp": 30948,
+            "fp": 2650,
+            "tn": 437381,
+            "fn": 221724
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6760891753031242,
+          "precision": 0.9211262575153283,
+          "recall": 0.12248290273556231,
+          "f1_score": 0.21621546092849409,
+          "false_positive_rate": 0.006022302974108642,
+          "specificity": 0.9939776970258913
+        },
+        "0.20": {
+          "threshold": 0.2,
+          "confusion_matrix": {
+            "tp": 6554,
+            "fp": 783,
+            "tn": 439248,
+            "fn": 246118
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6435687444691304,
+          "precision": 0.8932806324110671,
+          "recall": 0.025938766464032422,
+          "f1_score": 0.0504136395278625,
+          "false_positive_rate": 0.0017794200863121008,
+          "specificity": 0.9982205799136878
+        },
+        "0.30": {
+          "threshold": 0.3,
+          "confusion_matrix": {
+            "tp": 3433,
+            "fp": 373,
+            "tn": 439658,
+            "fn": 249239
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6396550902767852,
+          "precision": 0.9019968470835523,
+          "recall": 0.013586784447821682,
+          "f1_score": 0.026770327279532748,
+          "false_positive_rate": 0.000847667550695292,
+          "specificity": 0.9991523324493047
+        },
+        "0.40": {
+          "threshold": 0.4,
+          "confusion_matrix": {
+            "tp": 2321,
+            "fp": 239,
+            "tn": 439792,
+            "fn": 250351
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6382432297824608,
+          "precision": 0.906640625,
+          "recall": 0.009185821935157042,
+          "f1_score": 0.018187374623871617,
+          "false_positive_rate": 0.0005431435512497984,
+          "specificity": 0.9994568564487502
+        },
+        "0.50": {
+          "threshold": 0.5,
+          "confusion_matrix": {
+            "tp": 278,
+            "fp": 74,
+            "tn": 439957,
+            "fn": 252394
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.635532111164525,
+          "precision": 0.7897727272727273,
+          "recall": 0.00110024062816616,
+          "f1_score": 0.0021974200075882133,
+          "false_positive_rate": 0.00016816996984303379,
+          "specificity": 0.999831830030157
+        }
+      }
+    },
+    "hist_gradient_boosting": {
+      "artifact_path": "models/model_hist_gradient_boosting_m16.joblib",
+      "positive_class_index": 1,
+      "feature_count": 78,
+      "roc_auc": 0.478725745582674,
+      "pr_auc": 0.3929537171969586,
+      "thresholds": {
+        "0.10": {
+          "threshold": 0.1,
+          "confusion_matrix": {
+            "tp": 7055,
+            "fp": 253,
+            "tn": 439778,
+            "fn": 245617
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6450571168307341,
+          "precision": 0.9653804050355774,
+          "recall": 0.0279215742147923,
+          "f1_score": 0.0542734056465882,
+          "false_positive_rate": 0.0005749594914903723,
+          "specificity": 0.9994250405085097
+        },
+        "0.20": {
+          "threshold": 0.2,
+          "confusion_matrix": {
+            "tp": 6917,
+            "fp": 179,
+            "tn": 439852,
+            "fn": 245755
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6449647251419439,
+          "precision": 0.9747745208568207,
+          "recall": 0.027375411600810536,
+          "f1_score": 0.05325521234332173,
+          "false_positive_rate": 0.0004067895216473385,
+          "specificity": 0.9995932104783527
+        },
+        "0.30": {
+          "threshold": 0.3,
+          "confusion_matrix": {
+            "tp": 6839,
+            "fp": 164,
+            "tn": 439867,
+            "fn": 245833
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6448737770732912,
+          "precision": 0.9765814650863915,
+          "recall": 0.027066710992907802,
+          "f1_score": 0.052673534225474154,
+          "false_positive_rate": 0.0003727010142467235,
+          "specificity": 0.9996272989857533
+        },
+        "0.40": {
+          "threshold": 0.4,
+          "confusion_matrix": {
+            "tp": 4047,
+            "fp": 143,
+            "tn": 439888,
+            "fn": 248625
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6408735056727053,
+          "precision": 0.9658711217183771,
+          "recall": 0.016016812310030396,
+          "f1_score": 0.031511083772609416,
+          "false_positive_rate": 0.0003249771038858626,
+          "specificity": 0.9996750228961141
+        },
+        "0.50": {
+          "threshold": 0.5,
+          "confusion_matrix": {
+            "tp": 3176,
+            "fp": 116,
+            "tn": 439915,
+            "fn": 249496
+          },
+          "arithmetic_valid": true,
+          "accuracy": 0.6396550902767852,
+          "precision": 0.9647630619684082,
+          "recall": 0.012569655521783182,
+          "f1_score": 0.024815989748558392,
+          "false_positive_rate": 0.00026361779056475565,
+          "specificity": 0.9997363822094353
+        }
+      }
+    }
+  },
+  "per_attack_family_reconciliation": {
+    "attack_families": {
+      "DoS Hulk": {
+        "total_rows": 231073,
+        "threshold_0_40": {
+          "tp": 88922,
+          "fn": 142151,
+          "recall": 0.3848221124925889
+        },
+        "threshold_0_50": {
+          "tp": 40122,
+          "fn": 190951,
+          "recall": 0.17363344051446947
+        },
+        "probability_percentiles": {
+          "min": 0.0033327746536105612,
+          "median": 0.22,
+          "mean": 0.3163491624591355,
+          "p75": 0.48,
+          "max": 0.6999326646838433
+        }
+      },
+      "DoS GoldenEye": {
+        "total_rows": 10293,
+        "threshold_0_40": {
+          "tp": 0,
+          "fn": 10293,
+          "recall": 0.0
+        },
+        "threshold_0_50": {
+          "tp": 0,
+          "fn": 10293,
+          "recall": 0.0
+        },
+        "probability_percentiles": {
+          "min": 0.0,
+          "median": 0.10991015320965694,
+          "mean": 0.09422792041290409,
+          "p75": 0.14073609934885717,
+          "max": 0.29
+        }
+      },
+      "DoS slowloris": {
+        "total_rows": 5796,
+        "threshold_0_40": {
+          "tp": 524,
+          "fn": 5272,
+          "recall": 0.0904071773636991
+        },
+        "threshold_0_50": {
+          "tp": 520,
+          "fn": 5276,
+          "recall": 0.08971704623878538
+        },
+        "probability_percentiles": {
+          "min": 0.0,
+          "median": 0.04,
+          "mean": 0.09103617510046019,
+          "p75": 0.0621362367817129,
+          "max": 0.6156981063503679
+        }
+      },
+      "DoS Slowhttptest": {
+        "total_rows": 5499,
+        "threshold_0_40": {
+          "tp": 3,
+          "fn": 5496,
+          "recall": 0.0005455537370430987
+        },
+        "threshold_0_50": {
+          "tp": 0,
+          "fn": 5499,
+          "recall": 0.0
+        },
+        "probability_percentiles": {
+          "min": 0.0,
+          "median": 0.021706057113383217,
+          "mean": 0.042186569878659964,
+          "p75": 0.03437395048160545,
+          "max": 0.4544842252352668
+        }
+      },
+      "Heartbleed": {
+        "total_rows": 11,
+        "threshold_0_40": {
+          "tp": 0,
+          "fn": 11,
+          "recall": 0.0
+        },
+        "threshold_0_50": {
+          "tp": 0,
+          "fn": 11,
+          "recall": 0.0
+        },
+        "probability_percentiles": {
+          "min": 0.03,
+          "median": 0.1,
+          "mean": 0.0909090909090909,
+          "p75": 0.1,
+          "max": 0.12
+        }
+      }
+    },
+    "sum_total_rows_equals_252672": true,
+    "sum_t04_tp_equals_89449": true,
+    "sum_t05_tp_equals_40642": true
+  },
+  "exact_feature_collision_audit": {
+    "unique_conflicting_feature_vectors": 36,
+    "wednesday_dos_hulk_rows": 4187,
+    "development_benign_rows": 38,
+    "exact_comparison_method": "Value-by-value equality across all 78 numeric features without hashing shortcuts",
+    "finding": "4,187 DoS Hulk flows in Wednesday are identical across all 78 numerical features to benign flows in Friday/Tuesday. Available 78 features establish that flow summaries cannot separate these rows without additional features."
+  },
+  "threshold_selection_audit": {
+    "criteria": "Maximum validation F1-score on held-out Friday+Tuesday split",
+    "extra_trees_selected_threshold": 0.4,
+    "random_forest_selected_threshold": 0.2,
+    "wednesday_labels_used_in_selection": false,
+    "status": "VERIFIED_INDEPENDENT"
+  },
+  "validation_partition_audit": {
+    "split_type": "Stratified random split (80/20) on 100,000 sampled rows with random_state=42",
+    "shared_unique_feature_vectors_between_train_and_val": 323,
+    "training_rows_with_validation_clones": 1214,
+    "validation_rows_with_training_clones": 524,
+    "validation_clone_percentage": 0.0262,
+    "evaluation_finding": "Random splitting from the same capture permits identical flow records to span partitions, creating optimistic in-distribution metrics. A random split is NOT an independent capture-level test."
+  }
+}

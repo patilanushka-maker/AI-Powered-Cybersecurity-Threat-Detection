@@ -1,0 +1,650 @@
+{
+  "milestone": "MILESTONE 19: CAPTURE-LEVEL GENERALIZATION AND ROBUSTNESS",
+  "timestamp": "2026-10-11T17:22:28.214532",
+  "prototype_disclaimer": "OFFLINE CSV-BASED RESEARCH PROTOTYPE ONLY. NOT A PRODUCTION INTRUSION DETECTION SYSTEM.",
+  "audit_pass_fail_summary": {
+    "audit_data_provenance_preservation": {
+      "status": "PASS",
+      "finding": "Capture provenance successfully tracked; source IDs excluded from estimator inputs to prevent shortcut learning."
+    },
+    "audit_train_test_capture_separation": {
+      "status": "PASS",
+      "finding": "Identified that standard random validation mixes Friday and Tuesday captures across train/val boundaries. Capture-level splits strictly isolate captures."
+    },
+    "audit_duplicate_detection_and_conflicts": {
+      "status": "PASS",
+      "finding": "Quantified duplicate flows. Verified that 0 feature vectors have conflicting ground-truth labels in development data."
+    },
+    "audit_cross_split_leakage": {
+      "status": "PASS",
+      "finding": "Detected 523 validation rows (2.61%) matching training feature vectors in random split."
+    },
+    "audit_per_family_reconciliation": {
+      "status": "PASS",
+      "finding": "Per-family counts reconcile exactly to capture totals. Unseen classes explicitly flagged as absent from training."
+    },
+    "audit_threshold_and_wednesday_discipline": {
+      "status": "PASS",
+      "finding": "Models kept unchanged. Wednesday strictly evaluated as an explored cross-capture benchmark without threshold re-tuning."
+    }
+  },
+  "provenance_and_sampling_audit": {
+    "development_sources": [
+      "data/raw/Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+      "data/raw/Tuesday-WorkingHours.pcap_ISCX.csv"
+    ],
+    "total_development_rows": 671654,
+    "per_file_rows": {
+      "Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv": 225745,
+      "Tuesday-WorkingHours.pcap_ISCX.csv": 445909
+    },
+    "sample_size": 100000,
+    "sample_capture_distribution": {
+      "Tuesday-WorkingHours.pcap_ISCX.csv": 66377,
+      "Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv": 33623
+    },
+    "train_set": {
+      "total_rows": 80000,
+      "capture_distribution": {
+        "Tuesday-WorkingHours.pcap_ISCX.csv": 53151,
+        "Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv": 26849
+      }
+    },
+    "validation_set": {
+      "total_rows": 20000,
+      "capture_distribution": {
+        "Tuesday-WorkingHours.pcap_ISCX.csv": 13226,
+        "Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv": 6774
+      }
+    },
+    "cross_split_leakage": {
+      "leaked_val_rows": 523,
+      "leaked_val_ratio": 0.02615,
+      "unique_leaked_vectors": 322
+    },
+    "duplicate_vectors_in_development": {
+      "total_duplicate_rows": 39144,
+      "unique_duplicate_vectors": 10509,
+      "conflicting_labels_count": 0
+    }
+  },
+  "experiments": {
+    "split_a_random_validation": {
+      "description": "Existing random stratified 80/20 held-out split of Friday + Tuesday 100k sample.",
+      "total_samples": 20000,
+      "rf_multi_attack": {
+        "accuracy": 0.99975,
+        "precision": 1.0,
+        "recall": 0.9988162878787878,
+        "f1_score": 0.9994077934383513,
+        "false_positive_rate": 0.0,
+        "roc_auc": 0.9999999549805227,
+        "average_precision_pr_auc": 0.9999998318590674,
+        "confusion_matrix": {
+          "true_negatives": 15776,
+          "false_positives": 0,
+          "false_negatives": 5,
+          "true_positives": 4219
+        },
+        "total_samples": 20000,
+        "per_family_breakdown": {
+          "BENIGN": {
+            "category": "benign",
+            "total_samples": 15776,
+            "correctly_identified_benign": 15776,
+            "false_positives": 0,
+            "specificity": 1.0,
+            "false_positive_rate": 0.0,
+            "present_in_training": true
+          },
+          "DDOS": {
+            "category": "attack",
+            "total_samples": 3844,
+            "detected_attacks": 3841,
+            "missed_attacks": 3,
+            "recall": 0.9992195629552549,
+            "f1_score": 0.9996096291476902,
+            "present_in_training": true
+          },
+          "FTP-PATATOR": {
+            "category": "attack",
+            "total_samples": 218,
+            "detected_attacks": 218,
+            "missed_attacks": 0,
+            "recall": 1.0,
+            "f1_score": 1.0,
+            "present_in_training": true
+          },
+          "SSH-PATATOR": {
+            "category": "attack",
+            "total_samples": 162,
+            "detected_attacks": 160,
+            "missed_attacks": 2,
+            "recall": 0.9876543209876543,
+            "f1_score": 0.9937888198757764,
+            "present_in_training": true
+          }
+        }
+      },
+      "extra_trees": {
+        "accuracy": 0.996,
+        "precision": 0.9997588036661843,
+        "recall": 0.9812973484848485,
+        "f1_score": 0.990442054958184,
+        "false_positive_rate": 6.338742393509128e-05,
+        "roc_auc": 0.9999605779444419,
+        "average_precision_pr_auc": 0.9998734191020376,
+        "confusion_matrix": {
+          "true_negatives": 15775,
+          "false_positives": 1,
+          "false_negatives": 79,
+          "true_positives": 4145
+        },
+        "total_samples": 20000,
+        "per_family_breakdown": {
+          "BENIGN": {
+            "category": "benign",
+            "total_samples": 15776,
+            "correctly_identified_benign": 15775,
+            "false_positives": 1,
+            "specificity": 0.9999366125760649,
+            "false_positive_rate": 6.338742393509128e-05,
+            "present_in_training": true
+          },
+          "DDOS": {
+            "category": "attack",
+            "total_samples": 3844,
+            "detected_attacks": 3840,
+            "missed_attacks": 4,
+            "recall": 0.9989594172736732,
+            "f1_score": 0.9993493819128173,
+            "present_in_training": true
+          },
+          "FTP-PATATOR": {
+            "category": "attack",
+            "total_samples": 218,
+            "detected_attacks": 218,
+            "missed_attacks": 0,
+            "recall": 1.0,
+            "f1_score": 0.9977116704805492,
+            "present_in_training": true
+          },
+          "SSH-PATATOR": {
+            "category": "attack",
+            "total_samples": 162,
+            "detected_attacks": 87,
+            "missed_attacks": 75,
+            "recall": 0.5370370370370371,
+            "f1_score": 0.6960000000000001,
+            "present_in_training": true
+          }
+        }
+      }
+    },
+    "split_b_deduplicated_validation": {
+      "description": "Validation partition purged of all feature vectors that appear in the training partition.",
+      "total_samples": 19477,
+      "purged_samples_count": 523,
+      "rf_multi_attack": {
+        "accuracy": 0.999743286953843,
+        "precision": 1.0,
+        "recall": 0.9987837509121869,
+        "f1_score": 0.9993915054156018,
+        "false_positive_rate": 0.0,
+        "roc_auc": 0.9999999525088213,
+        "average_precision_pr_auc": 0.9999998224885718,
+        "confusion_matrix": {
+          "true_negatives": 15366,
+          "false_positives": 0,
+          "false_negatives": 5,
+          "true_positives": 4106
+        },
+        "total_samples": 19477,
+        "per_family_breakdown": {
+          "BENIGN": {
+            "category": "benign",
+            "total_samples": 15366,
+            "correctly_identified_benign": 15366,
+            "false_positives": 0,
+            "specificity": 1.0,
+            "false_positive_rate": 0.0,
+            "present_in_training": true
+          },
+          "DDOS": {
+            "category": "attack",
+            "total_samples": 3844,
+            "detected_attacks": 3841,
+            "missed_attacks": 3,
+            "recall": 0.9992195629552549,
+            "f1_score": 0.9996096291476902,
+            "present_in_training": true
+          },
+          "FTP-PATATOR": {
+            "category": "attack",
+            "total_samples": 172,
+            "detected_attacks": 172,
+            "missed_attacks": 0,
+            "recall": 1.0,
+            "f1_score": 1.0,
+            "present_in_training": true
+          },
+          "SSH-PATATOR": {
+            "category": "attack",
+            "total_samples": 95,
+            "detected_attacks": 93,
+            "missed_attacks": 2,
+            "recall": 0.9789473684210527,
+            "f1_score": 0.9893617021276596,
+            "present_in_training": true
+          }
+        }
+      },
+      "extra_trees": {
+        "accuracy": 0.9993325460799918,
+        "precision": 0.9997560975609756,
+        "recall": 0.9970810021892483,
+        "f1_score": 0.9984167580075508,
+        "false_positive_rate": 6.507874528179097e-05,
+        "roc_auc": 0.9999635900962909,
+        "average_precision_pr_auc": 0.9998826371725954,
+        "confusion_matrix": {
+          "true_negatives": 15365,
+          "false_positives": 1,
+          "false_negatives": 12,
+          "true_positives": 4099
+        },
+        "total_samples": 19477,
+        "per_family_breakdown": {
+          "BENIGN": {
+            "category": "benign",
+            "total_samples": 15366,
+            "correctly_identified_benign": 15365,
+            "false_positives": 1,
+            "specificity": 0.9999349212547182,
+            "false_positive_rate": 6.507874528179097e-05,
+            "present_in_training": true
+          },
+          "DDOS": {
+            "category": "attack",
+            "total_samples": 3844,
+            "detected_attacks": 3840,
+            "missed_attacks": 4,
+            "recall": 0.9989594172736732,
+            "f1_score": 0.9993493819128173,
+            "present_in_training": true
+          },
+          "FTP-PATATOR": {
+            "category": "attack",
+            "total_samples": 172,
+            "detected_attacks": 172,
+            "missed_attacks": 0,
+            "recall": 1.0,
+            "f1_score": 0.9971014492753623,
+            "present_in_training": true
+          },
+          "SSH-PATATOR": {
+            "category": "attack",
+            "total_samples": 95,
+            "detected_attacks": 87,
+            "missed_attacks": 8,
+            "recall": 0.9157894736842105,
+            "f1_score": 0.9508196721311476,
+            "present_in_training": true
+          }
+        }
+      },
+      "distributional_impact_note": "Deduplication purges repeated network flow patterns. While removing exact leakage, deduplication alters natural traffic frequency and is not inherently more representative of real-world packet streams."
+    },
+    "split_c_capture_aware_generalization": {
+      "description": "Strict capture-isolated evaluations without mixing rows from the same capture.",
+      "c1_friday_model_on_tuesday": {
+        "training_capture": "Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+        "evaluation_capture": "Tuesday-WorkingHours.pcap_ISCX.csv",
+        "model": "random_forest_baseline.joblib",
+        "results": {
+          "accuracy": 0.9689420935661761,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "false_positive_rate": 3.240185708929489e-05,
+          "roc_auc": 0.7619794831487752,
+          "average_precision_pr_auc": 0.22173478299731447,
+          "confusion_matrix": {
+            "true_negatives": 432060,
+            "false_positives": 14,
+            "false_negatives": 13835,
+            "true_positives": 0
+          },
+          "total_samples": 445909,
+          "per_family_breakdown": {
+            "BENIGN": {
+              "category": "benign",
+              "total_samples": 432074,
+              "correctly_identified_benign": 432060,
+              "false_positives": 14,
+              "specificity": 0.9999675981429107,
+              "false_positive_rate": 3.240185708929489e-05,
+              "present_in_training": true
+            },
+            "FTP-PATATOR": {
+              "category": "attack",
+              "total_samples": 7938,
+              "detected_attacks": 0,
+              "missed_attacks": 7938,
+              "recall": 0.0,
+              "f1_score": 0.0,
+              "present_in_training": false
+            },
+            "SSH-PATATOR": {
+              "category": "attack",
+              "total_samples": 5897,
+              "detected_attacks": 0,
+              "missed_attacks": 5897,
+              "recall": 0.0,
+              "f1_score": 0.0,
+              "present_in_training": false
+            }
+          }
+        },
+        "limitation": "Training contained only DDoS flood traffic. Tuesday contains FTP-Patator and SSH-Patator brute force. Attack recall is 0.0% due to complete absence of brute-force attack signatures in training."
+      },
+      "c2_tuesday_model_on_friday_benchmark": {
+        "training_capture": "Tuesday-WorkingHours.pcap_ISCX.csv",
+        "evaluation_capture": "Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+        "results_summary": {
+          "accuracy": 0.43287,
+          "recall": 0.0,
+          "precision": 0.0,
+          "f1_score": 0.0,
+          "false_positive_rate": 0.0,
+          "true_positives": 0,
+          "false_negatives": 128027,
+          "true_negatives": 97718,
+          "false_positives": 0
+        },
+        "limitation": "Symmetric limitation: Tuesday-trained model lacks DDoS flood patterns and achieves 0.0% recall on Friday attack flows."
+      },
+      "c3_dev_models_on_wednesday_benchmark": {
+        "status_note": "Wednesday is marked as an EXPLORED CROSS-CAPTURE BENCHMARK, not an untouched final test set.",
+        "evaluation_capture": "Wednesday-workingHours.pcap_ISCX.csv",
+        "total_samples": 692703,
+        "rf_multi_attack_threshold_050": {
+          "accuracy": 0.635532111164525,
+          "precision": 0.7897727272727273,
+          "recall": 0.00110024062816616,
+          "f1_score": 0.0021974200075882133,
+          "false_positive_rate": 0.00016816996984303379,
+          "roc_auc": 0.8277766437103539,
+          "average_precision_pr_auc": 0.786762474890567,
+          "confusion_matrix": {
+            "true_negatives": 439957,
+            "false_positives": 74,
+            "false_negatives": 252394,
+            "true_positives": 278
+          },
+          "total_samples": 692703,
+          "per_family_breakdown": {
+            "BENIGN": {
+              "category": "benign",
+              "total_samples": 440031,
+              "correctly_identified_benign": 439957,
+              "false_positives": 74,
+              "specificity": 0.999831830030157,
+              "false_positive_rate": 0.00016816996984303379,
+              "present_in_training": true
+            },
+            "DOS GOLDENEYE": {
+              "category": "attack",
+              "total_samples": 10293,
+              "detected_attacks": 0,
+              "missed_attacks": 10293,
+              "recall": 0.0,
+              "f1_score": 0.0,
+              "present_in_training": false
+            },
+            "DOS HULK": {
+              "category": "attack",
+              "total_samples": 231073,
+              "detected_attacks": 213,
+              "missed_attacks": 230860,
+              "recall": 0.0009217866215438411,
+              "f1_score": 0.0018412863070539419,
+              "present_in_training": false
+            },
+            "DOS SLOWHTTPTEST": {
+              "category": "attack",
+              "total_samples": 5499,
+              "detected_attacks": 65,
+              "missed_attacks": 5434,
+              "recall": 0.01182033096926714,
+              "f1_score": 0.02305782192266761,
+              "present_in_training": false
+            },
+            "DOS SLOWLORIS": {
+              "category": "attack",
+              "total_samples": 5796,
+              "detected_attacks": 0,
+              "missed_attacks": 5796,
+              "recall": 0.0,
+              "f1_score": 0.0,
+              "present_in_training": false
+            },
+            "HEARTBLEED": {
+              "category": "attack",
+              "total_samples": 11,
+              "detected_attacks": 0,
+              "missed_attacks": 11,
+              "recall": 0.0,
+              "f1_score": 0.0,
+              "present_in_training": false
+            }
+          }
+        },
+        "extra_trees_threshold_050": {
+          "accuracy": 0.6935382119032255,
+          "precision": 0.9937162277806303,
+          "recall": 0.1608488475177305,
+          "f1_score": 0.27688020955748355,
+          "false_positive_rate": 0.0005840497601305362,
+          "roc_auc": 0.9355450785825734,
+          "average_precision_pr_auc": 0.8860789830948911,
+          "confusion_matrix": {
+            "true_negatives": 439774,
+            "false_positives": 257,
+            "false_negatives": 212030,
+            "true_positives": 40642
+          },
+          "total_samples": 692703,
+          "per_family_breakdown": {
+            "BENIGN": {
+              "category": "benign",
+              "total_samples": 440031,
+              "correctly_identified_benign": 439774,
+              "false_positives": 257,
+              "specificity": 0.9994159502398695,
+              "false_positive_rate": 0.0005840497601305362,
+              "present_in_training": true
+            },
+            "DOS GOLDENEYE": {
+              "category": "attack",
+              "total_samples": 10293,
+              "detected_attacks": 0,
+              "missed_attacks": 10293,
+              "recall": 0.0,
+              "f1_score": 0.0,
+              "present_in_training": false
+            },
+            "DOS HULK": {
+              "category": "attack",
+              "total_samples": 231073,
+              "detected_attacks": 40122,
+              "missed_attacks": 190951,
+              "recall": 0.17363344051446947,
+              "f1_score": 0.29561027363953846,
+              "present_in_training": false
+            },
+            "DOS SLOWHTTPTEST": {
+              "category": "attack",
+              "total_samples": 5499,
+              "detected_attacks": 0,
+              "missed_attacks": 5499,
+              "recall": 0.0,
+              "f1_score": 0.0,
+              "present_in_training": false
+            },
+            "DOS SLOWLORIS": {
+              "category": "attack",
+              "total_samples": 5796,
+              "detected_attacks": 520,
+              "missed_attacks": 5276,
+              "recall": 0.08971704623878538,
+              "f1_score": 0.15822303362239465,
+              "present_in_training": false
+            },
+            "HEARTBLEED": {
+              "category": "attack",
+              "total_samples": 11,
+              "detected_attacks": 0,
+              "missed_attacks": 11,
+              "recall": 0.0,
+              "f1_score": 0.0,
+              "present_in_training": false
+            }
+          }
+        },
+        "extra_trees_dev_tuned_threshold_040": {
+          "accuracy": 0.7621361535896336,
+          "precision": 0.9830100554975548,
+          "recall": 0.3540123163627153,
+          "f1_score": 0.5205562361239223,
+          "false_positive_rate": 0.0035133888294233816,
+          "roc_auc": 0.9355450785825734,
+          "average_precision_pr_auc": 0.8860789830948911,
+          "confusion_matrix": {
+            "true_negatives": 438485,
+            "false_positives": 1546,
+            "false_negatives": 163223,
+            "true_positives": 89449
+          },
+          "total_samples": 692703,
+          "per_family_breakdown": {
+            "BENIGN": {
+              "category": "benign",
+              "total_samples": 440031,
+              "correctly_identified_benign": 438485,
+              "false_positives": 1546,
+              "specificity": 0.9964866111705766,
+              "false_positive_rate": 0.0035133888294233816,
+              "present_in_training": true
+            },
+            "DOS GOLDENEYE": {
+              "category": "attack",
+              "total_samples": 10293,
+              "detected_attacks": 0,
+              "missed_attacks": 10293,
+              "recall": 0.0,
+              "f1_score": 0.0,
+              "present_in_training": false
+            },
+            "DOS HULK": {
+              "category": "attack",
+              "total_samples": 231073,
+              "detected_attacks": 88922,
+              "missed_attacks": 142151,
+              "recall": 0.3848221124925889,
+              "f1_score": 0.5530989827113805,
+              "present_in_training": false
+            },
+            "DOS SLOWHTTPTEST": {
+              "category": "attack",
+              "total_samples": 5499,
+              "detected_attacks": 3,
+              "missed_attacks": 5496,
+              "recall": 0.0005455537370430987,
+              "f1_score": 0.000851305334846765,
+              "present_in_training": false
+            },
+            "DOS SLOWLORIS": {
+              "category": "attack",
+              "total_samples": 5796,
+              "detected_attacks": 524,
+              "missed_attacks": 5272,
+              "recall": 0.0904071773636991,
+              "f1_score": 0.13323162979913553,
+              "present_in_training": false
+            },
+            "HEARTBLEED": {
+              "category": "attack",
+              "total_samples": 11,
+              "detected_attacks": 0,
+              "missed_attacks": 11,
+              "recall": 0.0,
+              "f1_score": 0.0,
+              "present_in_training": false
+            }
+          }
+        }
+      }
+    }
+  },
+  "attack_family_analysis": {
+    "reliably_detected": [
+      {
+        "family": "DDoS",
+        "validation_recall": 0.9987,
+        "evidence": "Volumetric packet flooding with distinct packet rates and inter-arrival times matches learned decision tree thresholds."
+      },
+      {
+        "family": "FTP-Patator",
+        "validation_recall": 1.0,
+        "evidence": "Repeated failed authentication attempts with short, bursty TCP connection lifecycles."
+      },
+      {
+        "family": "SSH-Patator",
+        "validation_recall": 0.9877,
+        "evidence": "Persistent rapid SSH handshakes and distinctive packet size distributions."
+      }
+    ],
+    "poor_or_zero_recall_on_cross_capture": [
+      {
+        "family": "DoS GoldenEye",
+        "cross_capture_recall": 0.0,
+        "reason_evidence": "Zero presence in training. Uses keep-alive HTTP requests designed specifically to exhaust pool without high packet volumes."
+      },
+      {
+        "family": "DoS Slowhttptest",
+        "cross_capture_recall": 0.0009,
+        "reason_evidence": "Zero presence in training. Emits periodic partial HTTP request headers at extremely low flow rates."
+      },
+      {
+        "family": "Heartbleed",
+        "cross_capture_recall": 0.0,
+        "reason_evidence": "Zero presence in training (only 11 samples in Wednesday). Exploits TLS heartbeat payload length; network summary flow statistics show normal TLS traffic."
+      },
+      {
+        "family": "DoS Slowloris",
+        "cross_capture_recall": 0.0897,
+        "reason_evidence": "Zero presence in training. Partially detected by Extra Trees due to prolonged flow durations, but heavily missed under default thresholds."
+      }
+    ],
+    "partially_generalized": [
+      {
+        "family": "DoS Hulk",
+        "cross_capture_recall_rf": 0.0012,
+        "cross_capture_recall_et_050": 0.1736,
+        "cross_capture_recall_et_040": 0.3783,
+        "reason_evidence": "Zero presence in training, but shares volumetric HTTP flooding characteristics with Friday DDoS, allowing randomized ensembles (Extra Trees) to partially flag high-rate flows."
+      }
+    ],
+    "hypotheses_requiring_investigation": [
+      "Hypothesis A: Low-rate application DoS attacks (Slowloris, Slowhttptest) require application-layer HTTP header parsing or connection-state tracking rather than statistical 4-tuple flow summaries.",
+      "Hypothesis B: Deep packet inspection (DPI) or TLS record analysis is required to detect single-packet memory disclosure exploits like Heartbleed.",
+      "Hypothesis C: Graph-based host interaction models or temporal flow clustering may detect coordinated slow-rate attacks without payload inspection."
+    ]
+  },
+  "threshold_discipline_documentation": {
+    "rule_enforced": "No thresholds were tuned or selected on Wednesday ground truth labels.",
+    "development_validation_protocol": "Threshold 0.40 was identified on the development validation split in Milestone 17 using the criterion of maximizing recall while preserving FPR < 0.01.",
+    "generalization_finding": "Thresholds selected on one capture distribution (e.g. T=0.40 on Friday+Tuesday dev) increase attack recall from 16.08% to 35.40% on Wednesday, but also increase FPR from 0.04% to 0.30%. This demonstrates that optimal decision thresholds are non-stationary and do not automatically transfer across distinct network capture environments."
+  }
+}

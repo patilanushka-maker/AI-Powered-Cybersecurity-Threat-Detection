@@ -1,0 +1,169 @@
+{
+  "model_id": "hist_gradient_boosting",
+  "estimator": "HistGradientBoostingClassifier",
+  "validation_metrics": {
+    "accuracy": 0.99975,
+    "precision": 0.9997630893153281,
+    "recall": 0.9990530303030303,
+    "f1_score": 0.999407933688573,
+    "false_positive_rate": 6.338742393509128e-05,
+    "pos_label": 1,
+    "confusion_matrix": {
+      "matrix": [
+        [
+          15775,
+          1
+        ],
+        [
+          4,
+          4220
+        ]
+      ],
+      "true_negatives": 15775,
+      "false_positives": 1,
+      "false_negatives": 4,
+      "true_positives": 4220
+    },
+    "sample_count": 20000,
+    "roc_auc": 0.9999989195325465,
+    "pr_auc": 0.9999959864876535,
+    "roc_auc_applicable": true,
+    "dataset_name": "Held-Out Validation Split (Friday + Tuesday)",
+    "per_family_recall": {
+      "BENIGN": {
+        "category": "benign",
+        "total_samples": 15776,
+        "predicted_benign": 15775,
+        "predicted_attack": 1,
+        "benign_specificity": 0.9999366125760649,
+        "false_positive_rate": 6.338742393509128e-05
+      },
+      "DDoS": {
+        "category": "attack",
+        "total_samples": 3844,
+        "detected_attacks": 3840,
+        "missed_attacks": 4,
+        "recall": 0.9989594172736732,
+        "miss_rate": 0.001040582726326743
+      },
+      "FTP-Patator": {
+        "category": "attack",
+        "total_samples": 218,
+        "detected_attacks": 218,
+        "missed_attacks": 0,
+        "recall": 1.0,
+        "miss_rate": 0.0
+      },
+      "SSH-Patator": {
+        "category": "attack",
+        "total_samples": 162,
+        "detected_attacks": 162,
+        "missed_attacks": 0,
+        "recall": 1.0,
+        "miss_rate": 0.0
+      }
+    }
+  },
+  "independent_evaluation_metrics": {
+    "accuracy": 0.6396550902767852,
+    "precision": 0.9647630619684082,
+    "recall": 0.012569655521783182,
+    "f1_score": 0.024815989748558392,
+    "false_positive_rate": 0.00026361779056475565,
+    "pos_label": 1,
+    "confusion_matrix": {
+      "matrix": [
+        [
+          439915,
+          116
+        ],
+        [
+          249496,
+          3176
+        ]
+      ],
+      "true_negatives": 439915,
+      "false_positives": 116,
+      "false_negatives": 249496,
+      "true_positives": 3176
+    },
+    "sample_count": 692703,
+    "roc_auc": 0.478725745582674,
+    "pr_auc": 0.3929537171969586,
+    "roc_auc_applicable": true,
+    "dataset_name": "Independent Wednesday Capture (External)",
+    "per_family_recall": {
+      "BENIGN": {
+        "category": "benign",
+        "total_samples": 440031,
+        "predicted_benign": 439915,
+        "predicted_attack": 116,
+        "benign_specificity": 0.9997363822094353,
+        "false_positive_rate": 0.00026361779056475565
+      },
+      "DoS GoldenEye": {
+        "category": "attack",
+        "total_samples": 10293,
+        "detected_attacks": 0,
+        "missed_attacks": 10293,
+        "recall": 0.0,
+        "miss_rate": 1.0
+      },
+      "DoS Hulk": {
+        "category": "attack",
+        "total_samples": 231073,
+        "detected_attacks": 2608,
+        "missed_attacks": 228465,
+        "recall": 0.011286476568010975,
+        "miss_rate": 0.988713523431989
+      },
+      "DoS Slowhttptest": {
+        "category": "attack",
+        "total_samples": 5499,
+        "detected_attacks": 103,
+        "missed_attacks": 5396,
+        "recall": 0.01873067830514639,
+        "miss_rate": 0.9812693216948536
+      },
+      "DoS slowloris": {
+        "category": "attack",
+        "total_samples": 5796,
+        "detected_attacks": 465,
+        "missed_attacks": 5331,
+        "recall": 0.08022774327122154,
+        "miss_rate": 0.9197722567287785
+      },
+      "Heartbleed": {
+        "category": "attack",
+        "total_samples": 11,
+        "detected_attacks": 0,
+        "missed_attacks": 11,
+        "recall": 0.0,
+        "miss_rate": 1.0
+      }
+    }
+  },
+  "model_path": "models\\model_hist_gradient_boosting_m16.joblib",
+  "estimator_params": {
+    "categorical_features": null,
+    "class_weight": "balanced",
+    "early_stopping": "auto",
+    "interaction_cst": null,
+    "l2_regularization": 0.0,
+    "learning_rate": 0.1,
+    "loss": "log_loss",
+    "max_bins": 255,
+    "max_depth": 15,
+    "max_iter": 100,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 20,
+    "monotonic_cst": null,
+    "n_iter_no_change": 10,
+    "random_state": 42,
+    "scoring": "loss",
+    "tol": 1e-07,
+    "validation_fraction": 0.1,
+    "verbose": 0,
+    "warm_start": false
+  }
+}

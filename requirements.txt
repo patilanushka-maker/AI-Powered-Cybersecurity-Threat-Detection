@@ -1,0 +1,17 @@
+# Core Data Manipulation and Numerical Computing
+pandas>=2.0.0,<=2.2.3
+numpy>=1.24.0,<2.0.0
+
+# Machine Learning & Model Serialization
+scikit-learn>=1.3.0,<1.5.0
+joblib>=1.3.0
+
+# Visualization
+matplotlib>=3.8.0
+seaborn>=0.12.0
+
+# Interactive Dashboard / UI
+streamlit>=1.28.0
+
+# Testing and Code Quality
+pytest>=7.4.0

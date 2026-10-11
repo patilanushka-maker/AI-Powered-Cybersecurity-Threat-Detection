@@ -1,0 +1,167 @@
+{
+  "model_id": "extra_trees_balanced",
+  "estimator": "ExtraTreesClassifier",
+  "validation_metrics": {
+    "accuracy": 0.996,
+    "precision": 0.9997588036661843,
+    "recall": 0.9812973484848485,
+    "f1_score": 0.990442054958184,
+    "false_positive_rate": 6.338742393509128e-05,
+    "pos_label": 1,
+    "confusion_matrix": {
+      "matrix": [
+        [
+          15775,
+          1
+        ],
+        [
+          79,
+          4145
+        ]
+      ],
+      "true_negatives": 15775,
+      "false_positives": 1,
+      "false_negatives": 79,
+      "true_positives": 4145
+    },
+    "sample_count": 20000,
+    "roc_auc": 0.9999605779444419,
+    "pr_auc": 0.9998734191020376,
+    "roc_auc_applicable": true,
+    "dataset_name": "Held-Out Validation Split (Friday + Tuesday)",
+    "per_family_recall": {
+      "BENIGN": {
+        "category": "benign",
+        "total_samples": 15776,
+        "predicted_benign": 15775,
+        "predicted_attack": 1,
+        "benign_specificity": 0.9999366125760649,
+        "false_positive_rate": 6.338742393509128e-05
+      },
+      "DDoS": {
+        "category": "attack",
+        "total_samples": 3844,
+        "detected_attacks": 3840,
+        "missed_attacks": 4,
+        "recall": 0.9989594172736732,
+        "miss_rate": 0.001040582726326743
+      },
+      "FTP-Patator": {
+        "category": "attack",
+        "total_samples": 218,
+        "detected_attacks": 218,
+        "missed_attacks": 0,
+        "recall": 1.0,
+        "miss_rate": 0.0
+      },
+      "SSH-Patator": {
+        "category": "attack",
+        "total_samples": 162,
+        "detected_attacks": 87,
+        "missed_attacks": 75,
+        "recall": 0.5370370370370371,
+        "miss_rate": 0.46296296296296297
+      }
+    }
+  },
+  "independent_evaluation_metrics": {
+    "accuracy": 0.6835382552118296,
+    "precision": 0.9924349464264689,
+    "recall": 0.13343385891590678,
+    "f1_score": 0.23523953056753322,
+    "false_positive_rate": 0.0005840497601305362,
+    "pos_label": 1,
+    "confusion_matrix": {
+      "matrix": [
+        [
+          439774,
+          257
+        ],
+        [
+          218957,
+          33715
+        ]
+      ],
+      "true_negatives": 439774,
+      "false_positives": 257,
+      "false_negatives": 218957,
+      "true_positives": 33715
+    },
+    "sample_count": 692703,
+    "roc_auc": 0.9355450785825734,
+    "pr_auc": 0.8860789839584806,
+    "roc_auc_applicable": true,
+    "dataset_name": "Independent Wednesday Capture (External)",
+    "per_family_recall": {
+      "BENIGN": {
+        "category": "benign",
+        "total_samples": 440031,
+        "predicted_benign": 439774,
+        "predicted_attack": 257,
+        "benign_specificity": 0.9994159502398695,
+        "false_positive_rate": 0.0005840497601305362
+      },
+      "DoS GoldenEye": {
+        "category": "attack",
+        "total_samples": 10293,
+        "detected_attacks": 0,
+        "missed_attacks": 10293,
+        "recall": 0.0,
+        "miss_rate": 1.0
+      },
+      "DoS Hulk": {
+        "category": "attack",
+        "total_samples": 231073,
+        "detected_attacks": 33195,
+        "missed_attacks": 197878,
+        "recall": 0.14365590094905073,
+        "miss_rate": 0.8563440990509492
+      },
+      "DoS Slowhttptest": {
+        "category": "attack",
+        "total_samples": 5499,
+        "detected_attacks": 0,
+        "missed_attacks": 5499,
+        "recall": 0.0,
+        "miss_rate": 1.0
+      },
+      "DoS slowloris": {
+        "category": "attack",
+        "total_samples": 5796,
+        "detected_attacks": 520,
+        "missed_attacks": 5276,
+        "recall": 0.08971704623878538,
+        "miss_rate": 0.9102829537612146
+      },
+      "Heartbleed": {
+        "category": "attack",
+        "total_samples": 11,
+        "detected_attacks": 0,
+        "missed_attacks": 11,
+        "recall": 0.0,
+        "miss_rate": 1.0
+      }
+    }
+  },
+  "model_path": "models\\model_extra_trees_balanced_m16.joblib",
+  "estimator_params": {
+    "bootstrap": false,
+    "ccp_alpha": 0.0,
+    "class_weight": "balanced",
+    "criterion": "gini",
+    "max_depth": 15,
+    "max_features": "sqrt",
+    "max_leaf_nodes": null,
+    "max_samples": null,
+    "min_impurity_decrease": 0.0,
+    "min_samples_leaf": 1,
+    "min_samples_split": 2,
+    "min_weight_fraction_leaf": 0.0,
+    "n_estimators": 100,
+    "n_jobs": -1,
+    "oob_score": false,
+    "random_state": 42,
+    "verbose": 0,
+    "warm_start": false
+  }
+}

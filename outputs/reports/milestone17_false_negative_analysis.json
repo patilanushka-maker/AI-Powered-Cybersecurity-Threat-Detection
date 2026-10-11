@@ -1,0 +1,217 @@
+{
+  "analysis_type": "Milestone 17: False-Negative Investigation",
+  "timestamp": "2026-10-11T11:27:22.676225",
+  "model_path": "models\\model_extra_trees_balanced_m16.joblib",
+  "selected_threshold_applied": 0.4,
+  "attack_families": {
+    "DoS Hulk": {
+      "total_flow_count": 231073,
+      "detected_count_tp": 88922,
+      "missed_count_fn": 142151,
+      "recall_rate": 0.3848221124925889,
+      "miss_rate": 0.6151778875074111,
+      "probability_statistics": {
+        "mean": 0.3163491624591355,
+        "median": 0.22,
+        "p75": 0.48,
+        "min": 0.0033327746536105612,
+        "max": 0.6999326646838433
+      },
+      "feature_distribution_contrast": {
+        "Flow Duration": {
+          "detected_mean": 93247026.36638851,
+          "missed_mean": 34458673.910616174
+        },
+        "Total Fwd Packets": {
+          "detected_mean": 7.636220507860822,
+          "missed_mean": 3.8055166688943447
+        },
+        "Flow Packets/s": {
+          "detected_mean": 0.3129769449982007,
+          "missed_mean": 297448.6509476344
+        },
+        "Fwd Packet Length Mean": {
+          "detected_mean": 52.38809002061334,
+          "missed_mean": 39.415420385761216
+        },
+        "Destination Port": {
+          "detected_mean": 80.0,
+          "missed_mean": 80.0
+        },
+        "Init_Win_bytes_forward": {
+          "detected_mean": 259.98764085378195,
+          "missed_mean": 3122.473046267701
+        }
+      }
+    },
+    "DoS GoldenEye": {
+      "total_flow_count": 10293,
+      "detected_count_tp": 0,
+      "missed_count_fn": 10293,
+      "recall_rate": 0.0,
+      "miss_rate": 1.0,
+      "probability_statistics": {
+        "mean": 0.09422792041290409,
+        "median": 0.10991015320965694,
+        "p75": 0.14073609934885717,
+        "min": 0.0,
+        "max": 0.29
+      },
+      "feature_distribution_contrast": {
+        "Flow Duration": {
+          "detected_mean": null,
+          "missed_mean": 23127222.217137862
+        },
+        "Total Fwd Packets": {
+          "detected_mean": null,
+          "missed_mean": 5.9044010492567764
+        },
+        "Flow Packets/s": {
+          "detected_mean": null,
+          "missed_mean": 9.136096453999512
+        },
+        "Fwd Packet Length Mean": {
+          "detected_mean": null,
+          "missed_mean": 59.444926676840566
+        },
+        "Destination Port": {
+          "detected_mean": null,
+          "missed_mean": 80.0
+        },
+        "Init_Win_bytes_forward": {
+          "detected_mean": null,
+          "missed_mean": 21000.874283493635
+        }
+      }
+    },
+    "DoS slowloris": {
+      "total_flow_count": 5796,
+      "detected_count_tp": 524,
+      "missed_count_fn": 5272,
+      "recall_rate": 0.0904071773636991,
+      "miss_rate": 0.9095928226363009,
+      "probability_statistics": {
+        "mean": 0.09103617510046019,
+        "median": 0.04,
+        "p75": 0.0621362367817129,
+        "min": 0.0,
+        "max": 0.6156981063503679
+      },
+      "feature_distribution_contrast": {
+        "Flow Duration": {
+          "detected_mean": 61.162213740458014,
+          "missed_mean": 62175468.06031866
+        },
+        "Total Fwd Packets": {
+          "detected_mean": 1.0,
+          "missed_mean": 6.867602427921093
+        },
+        "Flow Packets/s": {
+          "detected_mean": 45279.611498282444,
+          "missed_mean": 152.02153524832963
+        },
+        "Fwd Packet Length Mean": {
+          "detected_mean": 7.938931297709924,
+          "missed_mean": 68.58069900403319
+        },
+        "Destination Port": {
+          "detected_mean": 80.0,
+          "missed_mean": 80.0
+        },
+        "Init_Win_bytes_forward": {
+          "detected_mean": 230.20801526717557,
+          "missed_mean": 21500.191009104703
+        }
+      }
+    },
+    "DoS Slowhttptest": {
+      "total_flow_count": 5499,
+      "detected_count_tp": 3,
+      "missed_count_fn": 5496,
+      "recall_rate": 0.0005455537370430987,
+      "miss_rate": 0.9994544462629569,
+      "probability_statistics": {
+        "mean": 0.042186569878659964,
+        "median": 0.021706057113383217,
+        "p75": 0.03437395048160545,
+        "min": 0.0,
+        "max": 0.4544842252352669
+      },
+      "feature_distribution_contrast": {
+        "Flow Duration": {
+          "detected_mean": 74.66666666666667,
+          "missed_mean": 57751398.18486172
+        },
+        "Total Fwd Packets": {
+          "detected_mean": 1.0,
+          "missed_mean": 5.744359534206696
+        },
+        "Flow Packets/s": {
+          "detected_mean": 26786.786790000002,
+          "missed_mean": 22233.29433195146
+        },
+        "Fwd Packet Length Mean": {
+          "detected_mean": 0.0,
+          "missed_mean": 156.63904326907752
+        },
+        "Destination Port": {
+          "detected_mean": 80.0,
+          "missed_mean": 80.0
+        },
+        "Init_Win_bytes_forward": {
+          "detected_mean": 357.3333333333333,
+          "missed_mean": 22453.05349344978
+        }
+      }
+    },
+    "Heartbleed": {
+      "total_flow_count": 11,
+      "detected_count_tp": 0,
+      "missed_count_fn": 11,
+      "recall_rate": 0.0,
+      "miss_rate": 1.0,
+      "probability_statistics": {
+        "mean": 0.0909090909090909,
+        "median": 0.1,
+        "p75": 0.1,
+        "min": 0.03,
+        "max": 0.12
+      },
+      "feature_distribution_contrast": {
+        "Flow Duration": {
+          "detected_mean": null,
+          "missed_mean": 110679707.54545455
+        },
+        "Total Fwd Packets": {
+          "detected_mean": null,
+          "missed_mean": 2583.7272727272725
+        },
+        "Flow Packets/s": {
+          "detected_mean": null,
+          "missed_mean": 40.55898991363636
+        },
+        "Fwd Packet Length Mean": {
+          "detected_mean": null,
+          "missed_mean": 5.391533128363636
+        },
+        "Destination Port": {
+          "detected_mean": null,
+          "missed_mean": 444.0
+        },
+        "Init_Win_bytes_forward": {
+          "detected_mean": null,
+          "missed_mean": 2899.2727272727275
+        }
+      }
+    }
+  },
+  "cross_capture_feature_conflicts": {
+    "unique_overlapping_feature_hashes": 9842,
+    "total_wednesday_flows_matching_training_features": 26981,
+    "wednesday_labels_with_training_feature_clones": {
+      "BENIGN": 22794,
+      "DoS Hulk": 4187
+    },
+    "critical_finding": "4,187 flows labeled 'DoS Hulk' in Wednesday possess exact numerical feature duplicates of flows labeled 'BENIGN' in Friday and Tuesday. A pure flow-summary classifier cannot discriminate these conflicting flows without payload information."
+  }
+}

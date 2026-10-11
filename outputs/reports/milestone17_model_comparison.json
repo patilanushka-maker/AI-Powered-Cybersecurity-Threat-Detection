@@ -1,0 +1,131 @@
+{
+  "comparison_title": "Milestone 17: Multi-Attack Random Forest vs Extra Trees Model Comparison",
+  "timestamp": "2026-10-11T11:27:22.808538",
+  "evaluation_protocol": {
+    "in_distribution_validation": "Stratified held-out split of Friday + Tuesday (20,000 samples, 15,776 Benign, 4,224 Attack)",
+    "out_of_distribution_independent": "Wednesday capture (692,703 samples, 440,031 Benign, 252,672 DoS Attacks)",
+    "selection_criteria": "Threshold selected on validation F1 score; accuracy explicitly avoided as sole criterion due to class imbalance."
+  },
+  "random_forest_baseline": {
+    "validation_performance_t05": {
+      "threshold": 0.5,
+      "accuracy": 0.99975,
+      "precision": 1.0,
+      "recall": 0.9988162878787878,
+      "f1_score": 0.9994077934383513,
+      "false_positive_rate": 0.0,
+      "confusion_matrix": {
+        "true_positives": 4219,
+        "false_positives": 0,
+        "false_negatives": 5,
+        "true_negatives": 15776
+      }
+    },
+    "validation_performance_t02": {
+      "threshold": 0.2,
+      "accuracy": 0.99985,
+      "precision": 0.9997632015155103,
+      "recall": 0.9995265151515151,
+      "f1_score": 0.9996448443234285,
+      "false_positive_rate": 6.338742393509128e-05,
+      "confusion_matrix": {
+        "true_positives": 4222,
+        "false_positives": 1,
+        "false_negatives": 2,
+        "true_negatives": 15775
+      }
+    },
+    "wednesday_performance_t05": {
+      "threshold": 0.5,
+      "accuracy": 0.635532111164525,
+      "precision": 0.7897727272727273,
+      "recall": 0.00110024062816616,
+      "f1_score": 0.0021974200075882133,
+      "false_positive_rate": 0.00016816996984303379,
+      "confusion_matrix": {
+        "true_positives": 278,
+        "false_positives": 74,
+        "false_negatives": 252394,
+        "true_negatives": 439957
+      }
+    },
+    "wednesday_performance_t02": {
+      "threshold": 0.2,
+      "accuracy": 0.6435687444691304,
+      "precision": 0.8932806324110671,
+      "recall": 0.025938766464032422,
+      "f1_score": 0.0504136395278625,
+      "false_positive_rate": 0.0017794200863121008,
+      "confusion_matrix": {
+        "true_positives": 6554,
+        "false_positives": 783,
+        "false_negatives": 246118,
+        "true_negatives": 439248
+      }
+    }
+  },
+  "extra_trees_balanced": {
+    "validation_performance_t05": {
+      "threshold": 0.5,
+      "accuracy": 0.996,
+      "precision": 0.9997588036661843,
+      "recall": 0.9812973484848485,
+      "f1_score": 0.990442054958184,
+      "false_positive_rate": 6.338742393509128e-05,
+      "confusion_matrix": {
+        "true_positives": 4145,
+        "false_positives": 1,
+        "false_negatives": 79,
+        "true_negatives": 15775
+      }
+    },
+    "validation_performance_t04": {
+      "threshold": 0.4,
+      "accuracy": 0.99815,
+      "precision": 0.9929361902519426,
+      "recall": 0.998342803030303,
+      "f1_score": 0.9956321567701569,
+      "false_positive_rate": 0.0019016227180527383,
+      "confusion_matrix": {
+        "true_positives": 4217,
+        "false_positives": 30,
+        "false_negatives": 7,
+        "true_negatives": 15746
+      }
+    },
+    "wednesday_performance_t05": {
+      "threshold": 0.5,
+      "accuracy": 0.6935382119032255,
+      "precision": 0.9937162277806303,
+      "recall": 0.1608488475177305,
+      "f1_score": 0.27688020955748355,
+      "false_positive_rate": 0.0005840497601305362,
+      "confusion_matrix": {
+        "true_positives": 40642,
+        "false_positives": 257,
+        "false_negatives": 212030,
+        "true_negatives": 439774
+      }
+    },
+    "wednesday_performance_t04": {
+      "threshold": 0.4,
+      "accuracy": 0.7621361535896336,
+      "precision": 0.9830100554975548,
+      "recall": 0.3540123163627153,
+      "f1_score": 0.5205562361239223,
+      "false_positive_rate": 0.0035133888294233816,
+      "confusion_matrix": {
+        "true_positives": 89449,
+        "false_positives": 1546,
+        "false_negatives": 163223,
+        "true_negatives": 438485
+      }
+    }
+  },
+  "key_comparative_findings": [
+    "At default threshold 0.50, Random Forest achieves 0.11% recall (278 detections), while Extra Trees achieves 16.08% recall (40,642 detections) at 99.37% precision.",
+    "At validation-selected threshold 0.40, Extra Trees achieves 35.40% recall (89,449 detections) at 98.30% precision and 0.351% FPR.",
+    "Lowering threshold to 0.10 in Extra Trees yields 90.76% recall on Wednesday, but degrades FPR to 13.23% (58,229 false alarms), proving threshold selection cannot bypass feature representation limits.",
+    "The system remains an intrusion detection triage prototype and is not production-ready."
+  ]
+}

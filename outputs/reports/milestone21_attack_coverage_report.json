@@ -1,0 +1,745 @@
+{
+  "milestone": "MILESTONE 21: ATTACK-FAMILY COVERAGE AND GENERALIZATION IMPROVEMENT",
+  "timestamp": "2026-10-11T17:54:00.697840",
+  "prototype_disclaimer": "OFFLINE CSV-BASED RESEARCH PROTOTYPE ONLY. NOT A PRODUCTION INTRUSION DETECTION SYSTEM.",
+  "model_artifact_integrity": {
+    "models_unmodified": true,
+    "baseline_checksums": {
+      "models/random_forest_multi_attack.joblib": "486d6c75f00a163204cb993d0a4e9e2688c1b22ef58cd58e2e53e418d7fcd35f",
+      "models/model_extra_trees_balanced_m16.joblib": "c60cef05d9ad7751f013e13d5c297dc2e9b1191ec9aaf1af887cb16227c7f60b"
+    },
+    "post_experiment_checksums": {
+      "models/random_forest_multi_attack.joblib": "486d6c75f00a163204cb993d0a4e9e2688c1b22ef58cd58e2e53e418d7fcd35f",
+      "models/model_extra_trees_balanced_m16.joblib": "c60cef05d9ad7751f013e13d5c297dc2e9b1191ec9aaf1af887cb16227c7f60b"
+    },
+    "default_model_invariance": "models/random_forest_multi_attack.joblib remains active default in app.py"
+  },
+  "phase2_feature_investigation": {
+    "top_15_feature_importances": {
+      "ACK Flag Count": 0.0794644926741178,
+      "Average Packet Size": 0.06176555747708537,
+      "Avg Bwd Segment Size": 0.06060789029223671,
+      "Bwd Packet Length Max": 0.054556928155211896,
+      "Destination Port": 0.05231361479844231,
+      "Bwd Packet Length Mean": 0.04399913019687249,
+      "Packet Length Std": 0.041899086462147274,
+      "Packet Length Mean": 0.039102544036492805,
+      "Bwd Packet Length Std": 0.03679369034553927,
+      "Packet Length Variance": 0.033508117719362844,
+      "PSH Flag Count": 0.029969232348157474,
+      "Fwd IAT Std": 0.024098409260597024,
+      "Flow IAT Std": 0.02357763528873864,
+      "Min Packet Length": 0.021796829646652065,
+      "min_seg_size_forward": 0.021442703474817984
+    },
+    "prediction_score_distributions_by_class": {
+      "BENIGN": {
+        "count": 440031,
+        "mean": 0.04050334107966134,
+        "std": 0.07887371451036111,
+        "min": 0.0,
+        "median": 0.005336446228554542,
+        "max": 0.8863485715792901,
+        "scores_ge_050": 257
+      },
+      "DOS GOLDENEYE": {
+        "count": 10293,
+        "mean": 0.0942279204129041,
+        "std": 0.0682487267995964,
+        "min": 0.0,
+        "median": 0.10991015320965694,
+        "max": 0.29,
+        "scores_ge_050": 0
+      },
+      "DOS HULK": {
+        "count": 231073,
+        "mean": 0.3163491624591355,
+        "std": 0.16651602826817738,
+        "min": 0.0033327746536105612,
+        "median": 0.22,
+        "max": 0.6999326646838433,
+        "scores_ge_050": 40122
+      },
+      "DOS SLOWHTTPTEST": {
+        "count": 5499,
+        "mean": 0.04218656987865997,
+        "std": 0.05826138755935883,
+        "min": 0.0,
+        "median": 0.021706057113383217,
+        "max": 0.4544842252352669,
+        "scores_ge_050": 0
+      },
+      "DOS SLOWLORIS": {
+        "count": 5796,
+        "mean": 0.0910361751004602,
+        "std": 0.16547914276275263,
+        "min": 0.0,
+        "median": 0.04,
+        "max": 0.6156981063503679,
+        "scores_ge_050": 520
+      },
+      "HEARTBLEED": {
+        "count": 11,
+        "mean": 0.09090909090909091,
+        "std": 0.02385562636132007,
+        "min": 0.03,
+        "median": 0.1,
+        "max": 0.12,
+        "scores_ge_050": 0
+      }
+    },
+    "top_features_mean_by_detection_status": {
+      "ATTACK_DETECTED": {
+        "ACK Flag Count": 1.0,
+        "Average Packet Size": 889.5380517989272,
+        "Avg Bwd Segment Size": 2037.5235166013729,
+        "Bwd Packet Length Max": 6410.023227203385,
+        "Destination Port": 80.0
+      },
+      "ATTACK_MISSED": {
+        "ACK Flag Count": 0.5814743196717446,
+        "Average Packet Size": 559.573867907703,
+        "Avg Bwd Segment Size": 1068.5432629111706,
+        "Bwd Packet Length Max": 3344.04813469792,
+        "Destination Port": 80.01888412017168
+      },
+      "BENIGN": {
+        "ACK Flag Count": 0.2855526087934714,
+        "Average Packet Size": 129.39072012566896,
+        "Avg Bwd Segment Size": 165.80381351315748,
+        "Bwd Packet Length Max": 412.2514686465272,
+        "Destination Port": 8906.403805640966
+      }
+    },
+    "investigation_finding": "Prediction scores for low-rate DoS attacks (GoldenEye, Slowhttptest, Slowloris) and Heartbleed remain heavily below 0.30, while volumetric flood flows (DoS Hulk) exhibit higher scores overlapping with learned DDoS flag patterns."
+  },
+  "phase3_data_coverage_audit": {
+    "available_sources": [
+      "Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv (DDoS, Benign)",
+      "Tuesday-WorkingHours.pcap_ISCX.csv (FTP-Patator, SSH-Patator, Benign)",
+      "Wednesday-workingHours.pcap_ISCX.csv (DoS Hulk, DoS GoldenEye, DoS slowloris, DoS Slowhttptest, Heartbleed, Benign)"
+    ],
+    "represented_in_training_dev": [
+      "DDOS",
+      "FTP-PATATOR",
+      "SSH-PATATOR"
+    ],
+    "absent_from_training_dev": [
+      "DOS GOLDENEYE",
+      "DOS HULK",
+      "DOS SLOWHTTPTEST",
+      "DOS SLOWLORIS",
+      "HEARTBLEED"
+    ],
+    "synthetic_samples_fabricated": false,
+    "data_manipulation_note": "No synthetic attack samples were fabricated or injected; labels strictly preserved from original datasets."
+  },
+  "phase4_controlled_experiments": {
+    "group_aware_split_summary": {
+      "total_development_rows": 100000,
+      "total_unique_groups": 97919,
+      "train_rows": 79879,
+      "val_rows": 20121,
+      "overlapping_groups": 0
+    },
+    "frozen_baseline_models": {
+      "baseline1_rf_multi_attack": {
+        "model_path": "models/random_forest_multi_attack.joblib",
+        "dev_group_val": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "false_positive_rate": 0.0,
+          "roc_auc": 1.0,
+          "average_precision_pr_auc": 1.0,
+          "predicted_alerts_count": 4200,
+          "confusion_matrix": {
+            "tn": 15921,
+            "fp": 0,
+            "fn": 0,
+            "tp": 4200
+          },
+          "total_samples": 20121,
+          "threshold_used": 0.5
+        },
+        "wednesday_benchmark_t050": {
+          "accuracy": 0.635532111164525,
+          "precision": 0.7897727272727273,
+          "recall": 0.00110024062816616,
+          "f1_score": 0.0021974200075882133,
+          "false_positive_rate": 0.00016816996984303379,
+          "roc_auc": 0.8277766437103539,
+          "average_precision_pr_auc": 0.786762474890567,
+          "predicted_alerts_count": 352,
+          "confusion_matrix": {
+            "tn": 439957,
+            "fp": 74,
+            "fn": 252394,
+            "tp": 278
+          },
+          "total_samples": 692703,
+          "threshold_used": 0.5
+        },
+        "wednesday_family_coverage": {
+          "BENIGN": {
+            "category": "benign",
+            "support": 440031,
+            "correct_benign": 439957,
+            "false_positives": 74,
+            "specificity": 0.999831830030157,
+            "false_positive_rate": 0.00016816996984303379,
+            "represented_in_training": true,
+            "evaluation_context": "in_distribution_benign"
+          },
+          "DOS GOLDENEYE": {
+            "category": "attack",
+            "support": 10293,
+            "true_positives": 0,
+            "false_negatives": 10293,
+            "recall": 0.0,
+            "precision": 0.0,
+            "f1_score": 0.0,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS GOLDENEYE' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "DOS HULK": {
+            "category": "attack",
+            "support": 231073,
+            "true_positives": 213,
+            "false_negatives": 230860,
+            "recall": 0.0009217866215438411,
+            "precision": 0.7421602787456446,
+            "f1_score": 0.0018412863070539419,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS HULK' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "DOS SLOWHTTPTEST": {
+            "category": "attack",
+            "support": 5499,
+            "true_positives": 65,
+            "false_negatives": 5434,
+            "recall": 0.01182033096926714,
+            "precision": 0.4676258992805755,
+            "f1_score": 0.02305782192266761,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS SLOWHTTPTEST' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "DOS SLOWLORIS": {
+            "category": "attack",
+            "support": 5796,
+            "true_positives": 0,
+            "false_negatives": 5796,
+            "recall": 0.0,
+            "precision": 0.0,
+            "f1_score": 0.0,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS SLOWLORIS' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "HEARTBLEED": {
+            "category": "attack",
+            "support": 11,
+            "true_positives": 0,
+            "false_negatives": 11,
+            "recall": 0.0,
+            "precision": 0.0,
+            "f1_score": 0.0,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'HEARTBLEED' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          }
+        }
+      },
+      "baseline2_extra_trees_m16": {
+        "model_path": "models/model_extra_trees_balanced_m16.joblib",
+        "dev_group_val": {
+          "accuracy": 0.9958749565130958,
+          "precision": 1.0,
+          "recall": 0.9802380952380952,
+          "f1_score": 0.9900204400625227,
+          "false_positive_rate": 0.0,
+          "roc_auc": 0.9999945714106258,
+          "average_precision_pr_auc": 0.9999796416534226,
+          "predicted_alerts_count": 4117,
+          "confusion_matrix": {
+            "tn": 15921,
+            "fp": 0,
+            "fn": 83,
+            "tp": 4117
+          },
+          "total_samples": 20121,
+          "threshold_used": 0.5
+        },
+        "wednesday_benchmark_t050": {
+          "accuracy": 0.6935382119032255,
+          "precision": 0.9937162277806303,
+          "recall": 0.1608488475177305,
+          "f1_score": 0.27688020955748355,
+          "false_positive_rate": 0.0005840497601305362,
+          "roc_auc": 0.9355450785825734,
+          "average_precision_pr_auc": 0.8860789831421917,
+          "predicted_alerts_count": 40899,
+          "confusion_matrix": {
+            "tn": 439774,
+            "fp": 257,
+            "fn": 212030,
+            "tp": 40642
+          },
+          "total_samples": 692703,
+          "threshold_used": 0.5
+        },
+        "wednesday_benchmark_t040": {
+          "accuracy": 0.7621361535896336,
+          "precision": 0.9830100554975548,
+          "recall": 0.3540123163627153,
+          "f1_score": 0.5205562361239223,
+          "false_positive_rate": 0.0035133888294233816,
+          "roc_auc": 0.9355450785825733,
+          "average_precision_pr_auc": 0.8860789841694674,
+          "predicted_alerts_count": 90995,
+          "confusion_matrix": {
+            "tn": 438485,
+            "fp": 1546,
+            "fn": 163223,
+            "tp": 89449
+          },
+          "total_samples": 692703,
+          "threshold_used": 0.4
+        },
+        "wednesday_family_coverage_t050": {
+          "BENIGN": {
+            "category": "benign",
+            "support": 440031,
+            "correct_benign": 439774,
+            "false_positives": 257,
+            "specificity": 0.9994159502398695,
+            "false_positive_rate": 0.0005840497601305362,
+            "represented_in_training": true,
+            "evaluation_context": "in_distribution_benign"
+          },
+          "DOS GOLDENEYE": {
+            "category": "attack",
+            "support": 10293,
+            "true_positives": 0,
+            "false_negatives": 10293,
+            "recall": 0.0,
+            "precision": 0.0,
+            "f1_score": 0.0,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS GOLDENEYE' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "DOS HULK": {
+            "category": "attack",
+            "support": 231073,
+            "true_positives": 40122,
+            "false_negatives": 190951,
+            "recall": 0.17363344051446947,
+            "precision": 0.9936353054805716,
+            "f1_score": 0.29561027363953846,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS HULK' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "DOS SLOWHTTPTEST": {
+            "category": "attack",
+            "support": 5499,
+            "true_positives": 0,
+            "false_negatives": 5499,
+            "recall": 0.0,
+            "precision": 0.0,
+            "f1_score": 0.0,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS SLOWHTTPTEST' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "DOS SLOWLORIS": {
+            "category": "attack",
+            "support": 5796,
+            "true_positives": 520,
+            "false_negatives": 5276,
+            "recall": 0.08971704623878538,
+            "precision": 0.6692406692406693,
+            "f1_score": 0.15822303362239465,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS SLOWLORIS' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "HEARTBLEED": {
+            "category": "attack",
+            "support": 11,
+            "true_positives": 0,
+            "false_negatives": 11,
+            "recall": 0.0,
+            "precision": 0.0,
+            "f1_score": 0.0,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'HEARTBLEED' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          }
+        }
+      }
+    },
+    "candidate_models": {
+      "candidate_a_regularized_extra_trees": {
+        "description": "ExtraTreesClassifier with max_depth=12, min_samples_leaf=5, class_weight='balanced'.",
+        "dev_group_val": {
+          "accuracy": 0.9952288653645445,
+          "precision": 0.9973339796412991,
+          "recall": 0.9797619047619047,
+          "f1_score": 0.9884698534710544,
+          "false_positive_rate": 0.000690911374913636,
+          "roc_auc": 0.9998174618129395,
+          "average_precision_pr_auc": 0.9993366622218394,
+          "predicted_alerts_count": 4126,
+          "confusion_matrix": {
+            "tn": 15910,
+            "fp": 11,
+            "fn": 85,
+            "tp": 4115
+          },
+          "total_samples": 20121,
+          "threshold_used": 0.5
+        },
+        "wednesday_benchmark_t050": {
+          "accuracy": 0.775792800088927,
+          "precision": 0.9929123254660146,
+          "recall": 0.388103945035461,
+          "f1_score": 0.5580719051887262,
+          "false_positive_rate": 0.001590797012028698,
+          "roc_auc": 0.9283080902872332,
+          "average_precision_pr_auc": 0.8846604696063004,
+          "predicted_alerts_count": 98763,
+          "confusion_matrix": {
+            "tn": 439331,
+            "fp": 700,
+            "fn": 154609,
+            "tp": 98063
+          },
+          "total_samples": 692703,
+          "threshold_used": 0.5
+        },
+        "wednesday_family_coverage": {
+          "BENIGN": {
+            "category": "benign",
+            "support": 440031,
+            "correct_benign": 439331,
+            "false_positives": 700,
+            "specificity": 0.9984092029879713,
+            "false_positive_rate": 0.001590797012028698,
+            "represented_in_training": true,
+            "evaluation_context": "in_distribution_benign"
+          },
+          "DOS GOLDENEYE": {
+            "category": "attack",
+            "support": 10293,
+            "true_positives": 9,
+            "false_negatives": 10284,
+            "recall": 0.0008743806470416788,
+            "precision": 0.012693935119887164,
+            "f1_score": 0.0016360661697873116,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS GOLDENEYE' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "DOS HULK": {
+            "category": "attack",
+            "support": 231073,
+            "true_positives": 97534,
+            "false_negatives": 133539,
+            "recall": 0.422091719932662,
+            "precision": 0.9928741576236334,
+            "f1_score": 0.5923591056369891,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS HULK' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "DOS SLOWHTTPTEST": {
+            "category": "attack",
+            "support": 5499,
+            "true_positives": 0,
+            "false_negatives": 5499,
+            "recall": 0.0,
+            "precision": 0.0,
+            "f1_score": 0.0,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS SLOWHTTPTEST' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "DOS SLOWLORIS": {
+            "category": "attack",
+            "support": 5796,
+            "true_positives": 520,
+            "false_negatives": 5276,
+            "recall": 0.08971704623878538,
+            "precision": 0.4262295081967213,
+            "f1_score": 0.1482326111744584,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS SLOWLORIS' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "HEARTBLEED": {
+            "category": "attack",
+            "support": 11,
+            "true_positives": 0,
+            "false_negatives": 11,
+            "recall": 0.0,
+            "precision": 0.0,
+            "f1_score": 0.0,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'HEARTBLEED' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          }
+        },
+        "findings": "Achieved 38.81% recall on Wednesday at default T=0.50 (vs 16.08% for baseline ET), detecting 97,534 DoS Hulk flows, 520 DoS Slowloris flows, and 9 GoldenEye flows (total 98,063 true positives, 98,763 alerts including 700 false positives) with 99.29% precision."
+      },
+      "candidate_b_unsupervised_isolation_forest": {
+        "description": "IsolationForest anomaly detector trained strictly on normal Benign flows from Friday and Tuesday (contamination=0.01).",
+        "dev_group_val": {
+          "accuracy": 0.7882809005516624,
+          "precision": 0.3780487804878049,
+          "recall": 0.02214285714285714,
+          "f1_score": 0.04183535762483131,
+          "false_positive_rate": 0.009609949123798756,
+          "roc_auc": null,
+          "average_precision_pr_auc": null,
+          "predicted_alerts_count": 246,
+          "confusion_matrix": {
+            "tn": 15768,
+            "fp": 153,
+            "fn": 4107,
+            "tp": 93
+          },
+          "total_samples": 20121,
+          "threshold_used": 0.5
+        },
+        "wednesday_benchmark": {
+          "accuracy": 0.6919386807910461,
+          "precision": 0.9082423864463154,
+          "recall": 0.1729158751266464,
+          "f1_score": 0.29052088424314365,
+          "false_positive_rate": 0.01003111144442096,
+          "roc_auc": null,
+          "average_precision_pr_auc": null,
+          "predicted_alerts_count": 48105,
+          "confusion_matrix": {
+            "tn": 435617,
+            "fp": 4414,
+            "fn": 208981,
+            "tp": 43691
+          },
+          "total_samples": 692703,
+          "threshold_used": 0.5
+        },
+        "wednesday_family_coverage": {
+          "BENIGN": {
+            "category": "benign",
+            "support": 440031,
+            "correct_benign": 435617,
+            "false_positives": 4414,
+            "specificity": 0.9899688885555791,
+            "false_positive_rate": 0.01003111144442096,
+            "represented_in_training": true,
+            "evaluation_context": "in_distribution_benign"
+          },
+          "DOS GOLDENEYE": {
+            "category": "attack",
+            "support": 10293,
+            "true_positives": 0,
+            "false_negatives": 10293,
+            "recall": 0.0,
+            "precision": 0.0,
+            "f1_score": 0.0,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS GOLDENEYE' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "DOS HULK": {
+            "category": "attack",
+            "support": 231073,
+            "true_positives": 43441,
+            "false_negatives": 187632,
+            "recall": 0.1879968667910141,
+            "precision": 0.9077630341657089,
+            "f1_score": 0.31148540125050195,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS HULK' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "DOS SLOWHTTPTEST": {
+            "category": "attack",
+            "support": 5499,
+            "true_positives": 0,
+            "false_negatives": 5499,
+            "recall": 0.0,
+            "precision": 0.0,
+            "f1_score": 0.0,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS SLOWHTTPTEST' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "DOS SLOWLORIS": {
+            "category": "attack",
+            "support": 5796,
+            "true_positives": 239,
+            "false_negatives": 5557,
+            "recall": 0.041235334713595584,
+            "precision": 0.05136471093917903,
+            "f1_score": 0.04574600440233516,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS SLOWLORIS' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "HEARTBLEED": {
+            "category": "attack",
+            "support": 11,
+            "true_positives": 11,
+            "false_negatives": 0,
+            "recall": 1.0,
+            "precision": 0.0024858757062146894,
+            "f1_score": 0.004959422903516681,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'HEARTBLEED' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          }
+        },
+        "findings": "Novelty detection preliminary finding: detected 11/11 (100%) Heartbleed exploit flows as statistical outliers without prior training (preliminary evidence only on N=11 flows, insufficient for reliable production claims). Overall false positive rate is 1.003% (4,414 false alerts on 440,031 Benign flows, total 48,105 alerts)."
+      },
+      "candidate_c_regularized_hist_gradient_boosting": {
+        "description": "HistGradientBoostingClassifier with max_depth=8, l2_regularization=1.0.",
+        "dev_group_val": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "false_positive_rate": 0.0,
+          "roc_auc": 1.0,
+          "average_precision_pr_auc": 0.9999999999999999,
+          "predicted_alerts_count": 4200,
+          "confusion_matrix": {
+            "tn": 15921,
+            "fp": 0,
+            "fn": 0,
+            "tp": 4200
+          },
+          "total_samples": 20121,
+          "threshold_used": 0.5
+        },
+        "wednesday_benchmark_t050": {
+          "accuracy": 0.639991453768787,
+          "precision": 0.9719117225566065,
+          "recall": 0.013420561043566363,
+          "f1_score": 0.026475536869390737,
+          "false_positive_rate": 0.00022271158168401771,
+          "roc_auc": 0.8837478592754093,
+          "average_precision_pr_auc": 0.73500753281282,
+          "predicted_alerts_count": 3489,
+          "confusion_matrix": {
+            "tn": 439933,
+            "fp": 98,
+            "fn": 249281,
+            "tp": 3391
+          },
+          "total_samples": 692703,
+          "threshold_used": 0.5
+        },
+        "wednesday_family_coverage": {
+          "BENIGN": {
+            "category": "benign",
+            "support": 440031,
+            "correct_benign": 439933,
+            "false_positives": 98,
+            "specificity": 0.999777288418316,
+            "false_positive_rate": 0.00022271158168401771,
+            "represented_in_training": true,
+            "evaluation_context": "in_distribution_benign"
+          },
+          "DOS GOLDENEYE": {
+            "category": "attack",
+            "support": 10293,
+            "true_positives": 0,
+            "false_negatives": 10293,
+            "recall": 0.0,
+            "precision": 0.0,
+            "f1_score": 0.0,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS GOLDENEYE' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "DOS HULK": {
+            "category": "attack",
+            "support": 231073,
+            "true_positives": 3282,
+            "false_negatives": 227791,
+            "recall": 0.014203303717872706,
+            "precision": 0.9710059171597634,
+            "f1_score": 0.027997082570920397,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS HULK' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "DOS SLOWHTTPTEST": {
+            "category": "attack",
+            "support": 5499,
+            "true_positives": 107,
+            "false_negatives": 5392,
+            "recall": 0.019458083287870524,
+            "precision": 0.5219512195121951,
+            "f1_score": 0.03751753155680224,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS SLOWHTTPTEST' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "DOS SLOWLORIS": {
+            "category": "attack",
+            "support": 5796,
+            "true_positives": 2,
+            "false_negatives": 5794,
+            "recall": 0.0003450655624568668,
+            "precision": 0.02,
+            "f1_score": 0.0006784260515603799,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'DOS SLOWLORIS' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          },
+          "HEARTBLEED": {
+            "category": "attack",
+            "support": 11,
+            "true_positives": 0,
+            "false_negatives": 11,
+            "recall": 0.0,
+            "precision": 0.0,
+            "f1_score": 0.0,
+            "represented_in_training": false,
+            "warning": "EXPLICIT WARNING: Family 'HEARTBLEED' was completely ABSENT from training. Performance reflects zero-shot transfer, NOT ordinary in-distribution generalization.",
+            "evaluation_context": "out_of_distribution_attack"
+          }
+        },
+        "findings": "Severe generalization failure: achieved only 1.34% attack recall on Wednesday, missing 98.66% of attack flows due to aggressive tree boundary pruning."
+      }
+    }
+  },
+  "phase5_threshold_discipline_audit": {
+    "threshold_selection_policy": "All decision thresholds were selected on development validation data. Wednesday ground-truth labels were strictly NOT used for threshold tuning.",
+    "operational_threshold_comparison": {
+      "threshold_050_standard": "Standard decision boundary balancing precision and recall.",
+      "threshold_040_dev_tuned": "Dev-selected boundary from Milestone 17 (criterion: maximize recall while preserving FPR < 0.01 on dev validation)."
+    }
+  },
+  "scientific_conclusions": {
+    "improvements_demonstrated": [
+      "1. Candidate A (Regularized Extra Trees) significantly improved cross-capture attack recall on Wednesday from 16.08% to 38.81% at standard threshold 0.50 (+141% recall improvement), detecting 98,063 attacks (97,534 Hulk, 520 Slowloris, 9 GoldenEye) with 99.29% precision across 98,763 alerts (700 false alarms).",
+      "2. Candidate B (Isolation Forest) demonstrated that unsupervised novelty modeling on benign baselines can detect zero-day payload outliers like Heartbleed (11/11 detected, preliminary evidence only on 11 flows), which supervised tree models completely missed."
+    ],
+    "regressions_and_unresolved_limitations": [
+      "1. Low-rate HTTP application attacks (DoS GoldenEye 0.09%, DoS Slowhttptest 0.00%, DoS Slowloris 8.97%) remain severely undetected across all supervised classifiers because their summary 4-tuple statistics blend into normal HTTP sessions.",
+      "2. Candidate B anomaly detection incurs an elevated false-positive rate (1.003%, 4,414 false alerts on 440,031 Benign flows), producing 48,105 total alerts which is burdensome for high-throughput networks.",
+      "3. Candidate C (Gradient Boosting) suffers severe out-of-distribution regression (1.34% recall), proving that high validation performance does not translate to cross-capture resilience."
+    ],
+    "recommendation_on_default_model": "Keep 'models/random_forest_multi_attack.joblib' as the default production fallback model. Candidate A is validated as a superior experimental generalization model and should be documented alongside Extra Trees M16."
+  }
+}

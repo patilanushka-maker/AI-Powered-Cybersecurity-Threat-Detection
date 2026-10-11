@@ -1,0 +1,14 @@
+{
+  "train_sources": [
+    "data\\raw\\Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+    "data\\raw\\Tuesday-WorkingHours.pcap_ISCX.csv"
+  ],
+  "independent_test_source": "data\\raw\\Wednesday-workingHours.pcap_ISCX.csv",
+  "sample_size": 100000,
+  "test_size": 0.2,
+  "random_state": 42,
+  "n_estimators": 100,
+  "max_depth": 15,
+  "duplicate_strategy": "Within-file duplicates identified and preserved in dev data; sampled stratifying across raw classes",
+  "total_dev_duplicates_detected": 28635
+}
